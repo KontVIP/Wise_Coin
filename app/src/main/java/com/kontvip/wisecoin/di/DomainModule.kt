@@ -1,6 +1,8 @@
 package com.kontvip.wisecoin.di
 
 import com.kontvip.wisecoin.domain.CredentialsInteractor
+import com.kontvip.wisecoin.domain.Repository
+import com.kontvip.wisecoin.domain.TokenValidator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,5 +13,8 @@ import dagger.hilt.android.components.ViewModelComponent
 class DomainModule {
 
     @Provides
-    fun provideCredentialsInteractor(): CredentialsInteractor = CredentialsInteractor.Default()
+    fun provideCredentialsInteractor(
+        repository: Repository,
+        tokenValidator: TokenValidator
+    ): CredentialsInteractor = CredentialsInteractor.Default(repository, tokenValidator)
 }

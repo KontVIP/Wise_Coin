@@ -1,10 +1,15 @@
 package com.kontvip.wisecoin.domain
 
 interface CredentialsInteractor {
-    fun shouldAuthorize(): Boolean
+    suspend fun shouldAuthorize(): Boolean
 
-    class Default : CredentialsInteractor {
-        //todo
-        override fun shouldAuthorize(): Boolean = true
+    class Default(
+        private val repository: Repository,
+        private val tokenValidator: TokenValidator
+    ) : CredentialsInteractor {
+        override suspend fun shouldAuthorize(): Boolean {
+            val token = repository.getMonobankToken()
+            return !token.isValid(tokenValidator)
+        }
     }
 }
