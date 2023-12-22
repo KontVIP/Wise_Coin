@@ -11,7 +11,6 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 class PresentationViewModelModule {
 
-
     @Provides
     fun provideNavigation(): Navigation = Navigation.Default(containerId = R.id.fragmentContainer)
 }
