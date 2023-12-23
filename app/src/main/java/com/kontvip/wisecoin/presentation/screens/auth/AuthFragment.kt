@@ -97,7 +97,7 @@ class AuthFragment : BaseFragment<FragmentAuthBinding>(), JavaScriptInterface {
                 Toast.makeText(requireContext(), "Injection failed", Toast.LENGTH_SHORT).show()
             } else {
                 binding.tokenTextView.text = token
-                viewModel.saveToken(token)
+                viewModel.processToken(token)
             }
         }
     }

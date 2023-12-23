@@ -11,7 +11,6 @@ interface ClientInfo {
 
     }
 
-
     abstract class Error : ClientInfo {
 
         override fun isValid(): Boolean = false

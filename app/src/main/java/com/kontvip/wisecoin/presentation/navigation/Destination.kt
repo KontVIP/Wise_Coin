@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.kontvip.wisecoin.presentation.screens.auth.AuthFragment
 import com.kontvip.wisecoin.presentation.screens.pager.PagerFragment
+import com.kontvip.wisecoin.presentation.screens.splash.AuthPreloadingFragment
 
 abstract class Destination(private val canNavigateBack: Boolean) {
 
@@ -16,6 +17,10 @@ abstract class Destination(private val canNavigateBack: Boolean) {
     }
 
     protected abstract fun fragment(): Fragment
+
+    object AuthPreLoadingScreen : Destination(canNavigateBack = false) {
+        override fun fragment(): Fragment = AuthPreloadingFragment()
+    }
 
     object AuthScreen : Destination(canNavigateBack = false) {
         override fun fragment(): Fragment = AuthFragment()
