@@ -3,6 +3,7 @@ package com.kontvip.wisecoin.domain
 interface CredentialsInteractor {
     suspend fun shouldAuthorize(): Boolean
     fun signOut()
+    fun saveMonobankToken(token: String)
 
     class Default(
         private val repository: Repository,
@@ -15,6 +16,10 @@ interface CredentialsInteractor {
 
         override fun signOut() {
             repository.saveMonobankToken("")
+        }
+
+        override fun saveMonobankToken(token: String) {
+            repository.saveMonobankToken(token)
         }
     }
 }
