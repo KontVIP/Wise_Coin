@@ -1,0 +1,6 @@
+javascript:(function() {
+    var loader = document.getElementById('loader');
+    if (loader && window.getComputedStyle(loader).getPropertyValue('display') !== 'none') {
+        window.androidInterface.javaScriptReloadWebView();
+    }
+})();

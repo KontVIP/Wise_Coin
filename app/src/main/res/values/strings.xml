@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Wise Coin</string>
     <string name="authorization_error">Authorization error! Please, try to recreate a token!</string>
+    <string name="documentation_not_available">Documentation is not available!</string>
 </resources>

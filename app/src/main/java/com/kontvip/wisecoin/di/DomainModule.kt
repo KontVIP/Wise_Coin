@@ -2,7 +2,7 @@ package com.kontvip.wisecoin.di
 
 import com.kontvip.wisecoin.domain.CredentialsInteractor
 import com.kontvip.wisecoin.domain.Repository
-import com.kontvip.wisecoin.domain.TokenValidator
+import com.kontvip.wisecoin.domain.TokenServerValidator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +15,6 @@ class DomainModule {
     @Provides
     fun provideCredentialsInteractor(
         repository: Repository,
-        tokenValidator: TokenValidator
-    ): CredentialsInteractor = CredentialsInteractor.Default(repository, tokenValidator)
+        tokenServerValidator: TokenServerValidator
+    ): CredentialsInteractor = CredentialsInteractor.Default(repository, tokenServerValidator)
 }

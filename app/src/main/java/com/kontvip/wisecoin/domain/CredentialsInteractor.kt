@@ -1,17 +1,17 @@
 package com.kontvip.wisecoin.domain
 
 interface CredentialsInteractor {
-    suspend fun shouldAuthorize(): Boolean
+    suspend fun isSavedTokenValidOnServer(): Boolean
     fun signOut()
     fun saveMonobankToken(token: String)
 
     class Default(
         private val repository: Repository,
-        private val tokenValidator: TokenValidator
+        private val tokenServerValidator: TokenServerValidator
     ) : CredentialsInteractor {
-        override suspend fun shouldAuthorize(): Boolean {
+        override suspend fun isSavedTokenValidOnServer(): Boolean {
             val token = repository.getMonobankToken()
-            return !token.isValid(tokenValidator)
+            return token.isAcceptableForServer(tokenServerValidator)
         }
 
         override fun signOut() {

@@ -1,11 +1,11 @@
 package com.kontvip.wisecoin.data
 
 import com.kontvip.wisecoin.domain.Repository
-import com.kontvip.wisecoin.domain.TokenValidator
+import com.kontvip.wisecoin.domain.TokenServerValidator
 
-class DefaultTokenValidator(
+class DefaultTokenServerValidator(
     private val repository: Repository
-) : TokenValidator {
+) : TokenServerValidator {
     override suspend fun isValid(token: String): Boolean {
         val clientInfo = repository.fetchCloudClientInfo(token)
         return clientInfo.isValid()

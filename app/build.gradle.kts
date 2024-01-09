@@ -83,4 +83,7 @@ dependencies {
 
     //Splash screen
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //Test implementation
+    testImplementation("org.mockito:mockito-core:3.+")
 }

@@ -13,6 +13,11 @@ interface ResponseClientInfoMapper {
         override suspend fun <T : ClientInfo> map(block: suspend () -> Response<T>): ClientInfo {
             try {
                 val response = block.invoke()
+
+                val code = response.code()
+                if (code == 429) {
+                    return ClientInfo.Error.TooManyRequests()
+                }
                 if (response.code() in 400..499) {
                     return ClientInfo.Error.UnknownToken()
                 }

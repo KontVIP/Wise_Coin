@@ -4,14 +4,14 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kontvip.wisecoin.data.DefaultRepository
-import com.kontvip.wisecoin.data.DefaultTokenValidator
+import com.kontvip.wisecoin.data.DefaultTokenServerValidator
 import com.kontvip.wisecoin.data.cache.CacheSource
 import com.kontvip.wisecoin.data.cache.WiseCoinSharedPreferences
 import com.kontvip.wisecoin.data.cloud.CloudSource
 import com.kontvip.wisecoin.data.cloud.api.MonobankApi
 import com.kontvip.wisecoin.data.cloud.mapper.ResponseClientInfoMapper
 import com.kontvip.wisecoin.domain.Repository
-import com.kontvip.wisecoin.domain.TokenValidator
+import com.kontvip.wisecoin.domain.TokenServerValidator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,7 +51,7 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideTokenValidator(repository: Repository): TokenValidator = DefaultTokenValidator(
+    fun provideTokenValidator(repository: Repository): TokenServerValidator = DefaultTokenServerValidator(
         repository = repository
     )
 

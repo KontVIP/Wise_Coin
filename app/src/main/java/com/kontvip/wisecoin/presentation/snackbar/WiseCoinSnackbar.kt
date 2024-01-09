@@ -19,8 +19,6 @@ interface WiseCoinSnackbar {
 
             snackbar.show()
         }
-
-
     }
 
 }

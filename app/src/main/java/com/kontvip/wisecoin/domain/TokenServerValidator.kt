@@ -1,5 +1,5 @@
 package com.kontvip.wisecoin.domain
 
-interface TokenValidator {
+interface TokenServerValidator {
     suspend fun isValid(token: String): Boolean
 }

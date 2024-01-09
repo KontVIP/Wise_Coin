@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.core.DispatcherList
 import com.kontvip.wisecoin.domain.CredentialsInteractor
-import com.kontvip.wisecoin.domain.Repository
+import com.kontvip.wisecoin.domain.MonobankToken
 import com.kontvip.wisecoin.presentation.core.NavigationCommunication
 import com.kontvip.wisecoin.presentation.core.SnackbarCommunication
 import com.kontvip.wisecoin.presentation.navigation.Destination
@@ -16,20 +16,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val repository: Repository,
     private val credentialsInteractor: CredentialsInteractor,
     private val dispatcherList: DispatcherList,
     private val navigationCommunication: NavigationCommunication,
     private val snackbarCommunication: SnackbarCommunication
 ) : ViewModel() {
 
-    fun processToken(token: String) {
-        repository.saveMonobankToken(token)
+    fun tryToLoginWithToken(token: MonobankToken) {
+        credentialsInteractor.saveMonobankToken(token.toString())
         viewModelScope.launch(dispatcherList.io()) {
-            if (credentialsInteractor.shouldAuthorize()) {
-                snackbarCommunication.postValue(WiseCoinSnackbar.Error(R.string.authorization_error))
-            } else {
+            if (credentialsInteractor.isSavedTokenValidOnServer()) {
                 navigationCommunication.postValue(Destination.PagerScreen)
+            } else {
+                snackbarCommunication.postValue(WiseCoinSnackbar.Error(R.string.authorization_error))
             }
         }
     }
