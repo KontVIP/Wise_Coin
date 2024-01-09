@@ -1,8 +1,6 @@
 package com.kontvip.wisecoin.presentation.screens.pager
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.kontvip.wisecoin.core.DispatcherList
 import com.kontvip.wisecoin.domain.CredentialsInteractor
 import com.kontvip.wisecoin.presentation.core.NavigationCommunication
 import com.kontvip.wisecoin.presentation.navigation.Destination
@@ -16,7 +14,7 @@ class PagerViewModel @Inject constructor(
 ): ViewModel() {
 
     fun signOut() {
-        credentialsInteractor.signOut()
+        credentialsInteractor.clearMonobankToken()
         navigationCommunication.postValue(Destination.AuthScreen)
     }
 

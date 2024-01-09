@@ -2,7 +2,7 @@ package com.kontvip.wisecoin.domain
 
 interface CredentialsInteractor {
     suspend fun isSavedTokenValidOnServer(): Boolean
-    fun signOut()
+    fun clearMonobankToken()
     fun saveMonobankToken(token: String)
 
     class Default(
@@ -14,7 +14,7 @@ interface CredentialsInteractor {
             return token.isAcceptableForServer(tokenServerValidator)
         }
 
-        override fun signOut() {
+        override fun clearMonobankToken() {
             repository.saveMonobankToken("")
         }
 
