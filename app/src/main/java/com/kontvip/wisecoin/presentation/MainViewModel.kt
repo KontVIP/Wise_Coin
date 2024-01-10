@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor(
     fun init(isFirstRun: Boolean) {
         if (isFirstRun) {
             viewModelScope.launch(dispatcherList.io()) {
-                val destination = if (credentialsInteractor.isSavedTokenValidOnServer()) {
+                val destination = if (credentialsInteractor.isSavedTokenValid()) {
                     Destination.PagerScreen
                 } else {
                     Destination.AuthScreen

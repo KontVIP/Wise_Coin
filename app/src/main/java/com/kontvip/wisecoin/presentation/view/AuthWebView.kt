@@ -8,12 +8,10 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
-import androidx.lifecycle.lifecycleScope
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.domain.MonobankToken
-import com.kontvip.wisecoin.presentation.core.delegate.fragmentViewModels
+import com.kontvip.wisecoin.presentation.core.ext.fragmentLifecycleScope
+import com.kontvip.wisecoin.presentation.core.ext.fragmentViewModels
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -55,7 +53,7 @@ class AuthWebView : WebView {
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
 
-                findFragment<Fragment>().lifecycleScope.launch {
+                fragmentLifecycleScope().launch {
                     delay(LOADING_TIMEOUT)
                     view.loadUrl(viewModel.javaScriptCodeFromRawRes(R.raw.reload_page_if_loader_is_shown))
                 }
@@ -66,7 +64,7 @@ class AuthWebView : WebView {
         addJavascriptInterface(object : JavaScriptInterface {
             @JavascriptInterface
             override fun javaScriptReloadWebView() {
-                findFragment<Fragment>().lifecycleScope.launch {
+                fragmentLifecycleScope().launch {
                     delay(JAVASCRIPT_RESTART_DELAY)
                     loadUrl(MONOBANK_URL)
                 }
