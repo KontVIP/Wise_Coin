@@ -10,5 +10,5 @@ interface MonobankApi {
 
     @Headers("Content-Type: application/json")
     @GET("client-info")
-    suspend fun fetchClientInfo(@Header("X-Token") token: String): Response<ClientInfo.DefaultClientInfo>
+    suspend fun fetchClientInfo(@Header("X-Token") token: String): Response<ClientInfo.Default>
 }

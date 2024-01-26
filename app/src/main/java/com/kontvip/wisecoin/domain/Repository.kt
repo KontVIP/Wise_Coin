@@ -7,4 +7,5 @@ interface Repository {
     fun getMonobankToken(): MonobankToken
     suspend fun fetchCloudClientInfo(token: String): ClientInfo
     suspend fun fetchCacheClientInfo(): ClientInfo
+    suspend fun shouldFetchDataFromFirebase(): Boolean
 }

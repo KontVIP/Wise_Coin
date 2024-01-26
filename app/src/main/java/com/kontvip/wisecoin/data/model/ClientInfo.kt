@@ -1,24 +1,34 @@
 package com.kontvip.wisecoin.data.model
 
-interface ClientInfo {
+import com.kontvip.wisecoin.data.core.IdProvide
+import com.kontvip.wisecoin.data.core.IdRequest
+
+interface ClientInfo : IdProvide {
 
     fun isValid(): Boolean
-    fun shouldRepeatRequest(): Boolean
+    fun canRepeatRequest(): Boolean
 
-    data class DefaultClientInfo(
-        private val name: String
+    data class Default(
+        private val clientId: String,
+        private val name: String,
     ) : ClientInfo {
         override fun isValid(): Boolean = true
-        override fun shouldRepeatRequest(): Boolean = false
+        override fun canRepeatRequest(): Boolean = false
+        override fun onIdRequested(idRequest: IdRequest) {
+            idRequest.onIdProvided(clientId)
+        }
     }
 
     abstract class Error : ClientInfo {
 
         override fun isValid(): Boolean = false
-        override fun shouldRepeatRequest(): Boolean = false
+        override fun canRepeatRequest(): Boolean = false
+        override fun onIdRequested(idRequest: IdRequest) {
+            idRequest.onIdProvided("")
+        }
 
         class TooManyRequests() : Error() {
-            override fun shouldRepeatRequest(): Boolean = true
+            override fun canRepeatRequest(): Boolean = true
         }
         class NoClientInfo : Error()
         class UnknownToken : Error()

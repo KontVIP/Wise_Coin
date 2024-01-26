@@ -11,6 +11,8 @@ interface CacheSource {
     fun fetchClientInfo(): ClientInfo
     fun clearClientInfo()
 
+    fun getLastUpdateTimeMillis(): Long
+
     class Default(
         private val wiseCoinSharedPreferences: WiseCoinSharedPreferences
     ) : CacheSource {
@@ -34,6 +36,11 @@ interface CacheSource {
 
         override fun clearClientInfo() {
             //TODO("Not yet implemented")
+        }
+
+        override fun getLastUpdateTimeMillis(): Long {
+            TODO("Not yet implemented")
+            //todo: add shared prefs
         }
     }
 

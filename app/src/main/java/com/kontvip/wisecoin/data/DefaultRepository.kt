@@ -7,6 +7,8 @@ import com.kontvip.wisecoin.data.model.DefaultMonobankToken
 import com.kontvip.wisecoin.domain.MonobankToken
 import com.kontvip.wisecoin.domain.Repository
 import kotlinx.coroutines.delay
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class DefaultRepository(
     private val cacheSource: CacheSource,
@@ -30,7 +32,7 @@ class DefaultRepository(
         if (clientInfo.isValid()) {
             cacheSource.saveClientInfo(clientInfo)
         } else {
-            if (clientInfo.shouldRepeatRequest()) {
+            if (clientInfo.canRepeatRequest()) {
                 delay(REPEAT_REQUEST_DELAY)
                 return fetchCloudClientInfo(token)
             }
@@ -41,5 +43,18 @@ class DefaultRepository(
 
     override suspend fun fetchCacheClientInfo(): ClientInfo {
         return cacheSource.fetchClientInfo()
+    }
+
+    override suspend fun shouldFetchDataFromFirebase(): Boolean = suspendCoroutine { continuation ->
+        val clientInfo = cacheSource.fetchClientInfo()
+        cloudSource.lastUpdateTimeMillis(clientInfo,
+            onSuccessListener = {
+                val timeMillis = it.value as? Long ?: continuation.resume(false)
+                continuation.resume(timeMillis == cacheSource.getLastUpdateTimeMillis())
+            },
+            onFailureListener = {
+                continuation.resume(false)
+            }
+        )
     }
 }

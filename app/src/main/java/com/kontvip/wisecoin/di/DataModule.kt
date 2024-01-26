@@ -9,6 +9,7 @@ import com.kontvip.wisecoin.data.cache.CacheSource
 import com.kontvip.wisecoin.data.cache.WiseCoinSharedPreferences
 import com.kontvip.wisecoin.data.cloud.CloudSource
 import com.kontvip.wisecoin.data.cloud.api.MonobankApi
+import com.kontvip.wisecoin.data.cloud.firebase.WiseCoinFirebase
 import com.kontvip.wisecoin.data.cloud.mapper.ResponseClientInfoMapper
 import com.kontvip.wisecoin.domain.Repository
 import com.kontvip.wisecoin.domain.TokenServerValidator
@@ -67,10 +68,12 @@ class DataModule {
     @Singleton
     fun provideCloudSource(
         monobankApi: MonobankApi,
+        wiseCoinFirebase: WiseCoinFirebase,
         responseClientInfoMapper: ResponseClientInfoMapper
     ): CloudSource =
         CloudSource.Default(
             monobankApi = monobankApi,
+            wiseCoinFirebase = wiseCoinFirebase,
             responseClientInfoMapper = responseClientInfoMapper
         )
 
@@ -92,4 +95,8 @@ class DataModule {
     @Singleton
     fun provideResponseClientInfoMapper(): ResponseClientInfoMapper =
         ResponseClientInfoMapper.Default()
+
+    @Provides
+    @Singleton
+    fun provideWiseCoinFirebase(): WiseCoinFirebase = WiseCoinFirebase.Default()
 }
