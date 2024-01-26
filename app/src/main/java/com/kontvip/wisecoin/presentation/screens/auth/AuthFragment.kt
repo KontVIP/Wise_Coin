@@ -7,7 +7,7 @@ import com.kontvip.wisecoin.presentation.core.BaseFragment
 
 abstract class AuthFragment : BaseFragment<FragmentAuthBinding>() {
 
-    private val viewModel by viewModels<AuthViewModel>()
+    protected val viewModel by viewModels<AuthViewModel>()
 
     protected fun extractTokenAndTryToLogin(onTokenInvalid: () -> Unit = {}) {
         binding.authWebView.extractToken { token ->

@@ -29,8 +29,12 @@ class AuthViewModel @Inject constructor(
                 navigationCommunication.postValue(Destination.PagerScreen)
             } else {
                 navigationCommunication.postValue(Destination.AuthManuallyScreen)
-                snackbarCommunication.postValue(WiseCoinSnackbar.Error(R.string.authorization_error))
+                displayUnableToLoginWithCurrentTokenMessage()
             }
         }
+    }
+
+    fun displayUnableToLoginWithCurrentTokenMessage() {
+        snackbarCommunication.postValue(WiseCoinSnackbar.Error(R.string.authorization_error))
     }
 }

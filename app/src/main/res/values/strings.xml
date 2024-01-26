@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Wise Coin</string>
-    <string name="authorization_error">Authorization error! Please, try to recreate a token!</string>
+    <string name="authorization_error">Authorization error! Please, try to add or recreate a token!</string>
     <string name="documentation_not_available">Documentation is not available!</string>
     <string name="why_we_need_token">Your Monobank token is required to retrieve and display your income and outcome transactions within the app.\n\nWe only access the necessary information required for tracking your financial transactions, and your data is handled with the utmost confidentiality.</string>
     <string name="login_with_token">Login with token</string>

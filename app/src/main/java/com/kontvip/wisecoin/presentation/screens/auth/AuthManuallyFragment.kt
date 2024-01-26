@@ -12,7 +12,9 @@ class AuthManuallyFragment : AuthFragment() {
 
         binding.loginWithTokenButton.visibility = View.VISIBLE
         binding.loginWithTokenButton.setOnClickListener {
-            extractTokenAndTryToLogin()
+            extractTokenAndTryToLogin(onTokenInvalid = {
+                viewModel.displayUnableToLoginWithCurrentTokenMessage()
+            })
         }
     }
 
