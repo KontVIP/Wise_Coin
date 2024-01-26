@@ -11,15 +11,25 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class AuthAutoExtractionFragment : AuthFragment() {
 
+    companion object {
+        private const val TOKEN_EXTRACTION_DELAY = 200L
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch(Dispatchers.Main) {
-            delay(200L)
-            if (isAdded) {
-                extractTokenAndTryToLogin()
+        fun processExtraction() {
+            lifecycleScope.launch(Dispatchers.Main) {
+                delay(TOKEN_EXTRACTION_DELAY)
+                if (isAdded) {
+                    extractTokenAndTryToLogin(onTokenInvalid = {
+                        processExtraction()
+                    })
+                }
             }
         }
+
+        processExtraction()
     }
 
 }
