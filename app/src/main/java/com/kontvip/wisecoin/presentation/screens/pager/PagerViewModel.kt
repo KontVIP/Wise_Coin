@@ -15,7 +15,7 @@ class PagerViewModel @Inject constructor(
 
     fun signOut() {
         credentialsInteractor.clearMonobankToken()
-        navigationCommunication.postValue(Destination.AuthScreen)
+        navigationCommunication.postValue(Destination.AuthAutoExtractionScreen)
     }
 
 }

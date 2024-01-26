@@ -29,6 +29,7 @@ class AuthViewModel @Inject constructor(
                 navigationCommunication.postValue(Destination.PagerScreen)
             } else {
                 snackbarCommunication.postValue(WiseCoinSnackbar.Error(R.string.authorization_error))
+                navigationCommunication.postValue(Destination.AuthManuallyScreen)
             }
         }
     }

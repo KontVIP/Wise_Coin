@@ -28,7 +28,7 @@ class MainViewModel @Inject constructor(
                 val destination = if (credentialsInteractor.isSavedTokenValid()) {
                     Destination.PagerScreen
                 } else {
-                    Destination.AuthScreen
+                    Destination.AuthAutoExtractionScreen
                 }
                 navigationCommunication.postValue(destination)
             }

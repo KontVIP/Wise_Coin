@@ -3,6 +3,7 @@ package com.kontvip.wisecoin.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.ActivityMainBinding
 import com.kontvip.wisecoin.presentation.navigation.NavigationManager
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
