@@ -14,6 +14,7 @@ import com.kontvip.wisecoin.presentation.core.delegates.FragmentLifecycleScope
 import com.kontvip.wisecoin.presentation.core.delegates.FragmentViewModels
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class AuthWebView : WebView {
 
@@ -44,7 +45,11 @@ class AuthWebView : WebView {
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
                 val url = request.url.toString()
                 when {
-                    url.startsWith("app://") -> context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                    url.startsWith("app://") -> {
+                        try {
+                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                        } catch (_: Exception) {}
+                    }
                     url.startsWith("market://") -> loadUrl(MONOBANK_URL)
                     url.endsWith("/docs/") -> viewModel.displayDocsClickError()
                     else -> return false

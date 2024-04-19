@@ -37,8 +37,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildTypes {
+        defaultConfig {
+            buildConfigField("String", "FIREBASE_URL", project.findProperty("firebaseUrl") as String)
+        }
+    }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 

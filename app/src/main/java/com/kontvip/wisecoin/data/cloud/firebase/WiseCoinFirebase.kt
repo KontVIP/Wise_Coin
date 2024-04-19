@@ -3,8 +3,8 @@ package com.kontvip.wisecoin.data.cloud.firebase
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.FirebaseDatabase
+import com.kontvip.wisecoin.BuildConfig
 import java.lang.IllegalArgumentException
 
 interface WiseCoinFirebase {
@@ -16,11 +16,8 @@ interface WiseCoinFirebase {
     )
 
     class Default : WiseCoinFirebase {
-        companion object {
-            private val DATABASE_URL = System.getProperty("firebaseUrl")!!
-        }
 
-        private val database = Firebase.database(DATABASE_URL)
+        private val database = FirebaseDatabase.getInstance(BuildConfig.FIREBASE_URL)
         override fun lastUpdateTimeMillis(
             userId: String,
             onSuccessListener: OnSuccessListener<DataSnapshot>,
