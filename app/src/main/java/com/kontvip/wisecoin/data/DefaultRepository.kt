@@ -49,8 +49,8 @@ class DefaultRepository(
         val clientInfo = cacheSource.fetchClientInfo()
         cloudSource.lastUpdateTimeMillis(clientInfo,
             onSuccessListener = {
-                val timeMillis = it.value as? Long ?: continuation.resume(false)
-                continuation.resume(timeMillis == cacheSource.getLastUpdateTimeMillis())
+                val timeMillis = it.getValue(Long::class.java)
+                continuation.resume(timeMillis != cacheSource.getLastUpdateTimeMillis())
             },
             onFailureListener = {
                 continuation.resume(false)
