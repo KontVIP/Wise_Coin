@@ -3,6 +3,7 @@ package com.kontvip.wisecoin.presentation.screens.pager.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.CategoryItemBinding
 import com.kontvip.wisecoin.presentation.model.CategoryItem
 
@@ -28,7 +29,8 @@ class CategoryAdapter(
 
         fun bind(category: CategoryItem) {
             category.display(binding)
-            binding.percentageTextView.text = String.format("${((category.getTotalCost() / categories.sumOf { it.getTotalCost() }) * 100).toString().take(4)}")
+            val percentage = ((category.getTotalCost() / categories.sumOf { it.getTotalCost() }) * 100).toString()
+            binding.percentageTextView.text = binding.root.context.getString(R.string.percentage, percentage.take(4))
 
         }
     }

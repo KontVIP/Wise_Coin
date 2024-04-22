@@ -11,6 +11,8 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         app:cardCornerRadius="40dp"
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false"
         tools:cardBackgroundColor="@android:color/holo_blue_dark">
 
         <ImageView
@@ -20,7 +22,6 @@
             android:importantForAccessibility="no"
             android:padding="4dp"
             android:scaleType="centerCrop"
-            app:tint="@color/white"
             tools:src="@drawable/ic_home" />
 
     </androidx.cardview.widget.CardView>
@@ -29,12 +30,14 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/categoryNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="House rent" />
@@ -43,7 +46,8 @@
             android:id="@+id/percentageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="18sp"
             tools:text="26.3%" />
 
     </LinearLayout>
