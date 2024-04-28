@@ -27,7 +27,7 @@ interface ClientInfo : IdProvide {
             idRequest.onIdProvided("")
         }
 
-        class TooManyRequests() : Error() {
+        class TooManyRequests : Error() {
             override fun canRepeatRequest(): Boolean = true
         }
         class NoClientInfo : Error()

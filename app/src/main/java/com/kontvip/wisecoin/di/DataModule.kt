@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kontvip.wisecoin.data.DefaultRepository
 import com.kontvip.wisecoin.data.DefaultTokenServerValidator
+import com.kontvip.wisecoin.data.ResourceProvider
 import com.kontvip.wisecoin.data.cache.CacheSource
 import com.kontvip.wisecoin.data.cache.WiseCoinSharedPreferences
 import com.kontvip.wisecoin.data.cloud.CloudSource
@@ -52,9 +53,10 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideTokenValidator(repository: Repository): TokenServerValidator = DefaultTokenServerValidator(
-        repository = repository
-    )
+    fun provideTokenValidator(repository: Repository): TokenServerValidator =
+        DefaultTokenServerValidator(
+            repository = repository
+        )
 
     @Provides
     @Singleton
@@ -99,4 +101,13 @@ class DataModule {
     @Provides
     @Singleton
     fun provideWiseCoinFirebase(): WiseCoinFirebase = WiseCoinFirebase.Default()
+
+    @Provides
+    @Singleton
+    fun provideResourceProvider(
+        @ApplicationContext context: Context
+    ): ResourceProvider = ResourceProvider.Default(
+        context = context
+    )
+
 }
