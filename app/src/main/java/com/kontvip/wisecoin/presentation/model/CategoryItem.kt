@@ -1,30 +1,32 @@
 package com.kontvip.wisecoin.presentation.model
 
-import com.bumptech.glide.Glide
-import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.CategoryItemBinding
-import com.kontvip.wisecoin.domain.model.UiState
+import com.kontvip.wisecoin.domain.core.UiState
 
 data class CategoryItem(
     private val id: String,
     private val name: String,
     private val imageUrl: String,
     private val transactions: Transactions
-) : UiState {
+) : UiState<CategoryItem.Display> {
 
     fun display(binding: CategoryItemBinding) {
         binding.categoryNameTextView.text = name
         binding.costTextView.text = transactions.calculateCost()
+    }
 
-        if (imageUrl.isNotBlank()) {
-            Glide.with(binding.categoryIconImageView).load(imageUrl)
-                .into(binding.categoryIconImageView)
-        } else {
-            //todo: handle the icon
-            binding.categoryIconImageView.setImageResource(R.drawable.ic_home)
-        }
+    override fun display(uiDisplay: Display) {
+        uiDisplay.displayCategoryName(name)
+        uiDisplay.displayImage(imageUrl)
+        uiDisplay.displayCost(transactions.calculateCost())
     }
 
     fun getTotalCost(): Long = transactions.getTotalCost()
+
+    interface Display : UiState.UiDisplay {
+        fun displayCategoryName(name: String)
+        fun displayImage(imageUrl: String)
+        fun displayCost(cost: String)
+    }
 
 }

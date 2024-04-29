@@ -1,19 +1,18 @@
-package com.kontvip.wisecoin.domain.model
+package com.kontvip.wisecoin.domain.core
 
 import com.kontvip.wisecoin.R
-import com.kontvip.wisecoin.data.ResourceProvider
 import java.lang.IllegalStateException
 
 interface ServerResult<T> {
 
     fun isSuccessful(): Boolean = true
     fun extractData(): T
-    fun error(resourceProvider: ResourceProvider): String
+    fun errorResource(): Int
     fun canRepeatRequest(): Boolean
 
     class Success<T>(private val data: T) : ServerResult<T> {
         override fun extractData(): T = data
-        override fun error(resourceProvider: ResourceProvider): String = ""
+        override fun errorResource(): Int = -1
         override fun canRepeatRequest(): Boolean = false
     }
 
@@ -27,24 +26,20 @@ interface ServerResult<T> {
         override fun canRepeatRequest(): Boolean = false
 
         class TooManyRequests<T> : Error<T>() {
-            override fun error(resourceProvider: ResourceProvider): String =
-                resourceProvider.getString(R.string.error_too_many_requests)
+            override fun errorResource(): Int = R.string.error_too_many_requests
 
             override fun canRepeatRequest(): Boolean = true
         }
 
         class UnknownToken<T> : Error<T>() {
-            override fun error(resourceProvider: ResourceProvider): String =
-                resourceProvider.getString(R.string.error_unknown_token)
+            override fun errorResource(): Int = R.string.error_unknown_token
         }
 
         class NoInternetConnection<T> : Error<T>() {
-            override fun error(resourceProvider: ResourceProvider): String =
-                resourceProvider.getString(R.string.error_no_internet_connection)
+            override fun errorResource(): Int = R.string.error_no_internet_connection
         }
         class UnknownError<T> : Error<T>() {
-            override fun error(resourceProvider: ResourceProvider): String =
-                resourceProvider.getString(R.string.error_unknown)
+            override fun errorResource(): Int = R.string.error_unknown
         }
 
     }

@@ -8,8 +8,8 @@ import com.kontvip.wisecoin.data.cloud.firebase.WiseCoinFirebase
 import com.kontvip.wisecoin.data.cloud.mapper.ServerResultMapper
 import com.kontvip.wisecoin.data.core.IdRequest
 import com.kontvip.wisecoin.data.model.ClientInfo
-import com.kontvip.wisecoin.data.model.Payments
-import com.kontvip.wisecoin.domain.model.ServerResult
+import com.kontvip.wisecoin.domain.core.ServerResult
+import com.kontvip.wisecoin.domain.model.Payments
 
 interface CloudSource {
 

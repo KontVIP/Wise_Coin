@@ -5,15 +5,19 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kontvip.wisecoin.data.DefaultRepository
 import com.kontvip.wisecoin.data.DefaultTokenServerValidator
+import com.kontvip.wisecoin.data.MCCMapper
 import com.kontvip.wisecoin.data.ResourceProvider
 import com.kontvip.wisecoin.data.cache.CacheSource
 import com.kontvip.wisecoin.data.cache.WiseCoinSharedPreferences
 import com.kontvip.wisecoin.data.cloud.CloudSource
 import com.kontvip.wisecoin.data.cloud.api.MonobankApi
+import com.kontvip.wisecoin.data.cloud.deserializer.PaymentsDeserializer
 import com.kontvip.wisecoin.data.cloud.firebase.WiseCoinFirebase
 import com.kontvip.wisecoin.data.cloud.mapper.ServerResultMapper
 import com.kontvip.wisecoin.domain.Repository
 import com.kontvip.wisecoin.domain.TokenServerValidator
+import com.kontvip.wisecoin.domain.model.Payments
+import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,8 +34,11 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideGson(): Gson = GsonBuilder()
+    fun provideGson(
+        mccMapper: MCCMapper
+    ): Gson = GsonBuilder()
         .setLenient()
+        .registerTypeAdapter(Payments::class.java, PaymentsDeserializer(mccMapper))
         .create()
 
     @Provides
@@ -108,6 +115,16 @@ class DataModule {
         @ApplicationContext context: Context
     ): ResourceProvider = ResourceProvider.Default(
         context = context
+    )
+
+    @Provides
+    @Singleton
+    fun provideMCCMapper(
+        resourceProvider: ResourceProvider,
+        gson: Lazy<Gson>
+    ): MCCMapper = MCCMapper.Default(
+        resourceProvider = resourceProvider,
+        gson = gson
     )
 
 }

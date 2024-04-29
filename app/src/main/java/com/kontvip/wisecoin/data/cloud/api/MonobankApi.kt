@@ -1,7 +1,7 @@
 package com.kontvip.wisecoin.data.cloud.api
 
 import com.kontvip.wisecoin.data.model.ClientInfo
-import com.kontvip.wisecoin.data.model.Payments
+import com.kontvip.wisecoin.domain.model.Payments
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header

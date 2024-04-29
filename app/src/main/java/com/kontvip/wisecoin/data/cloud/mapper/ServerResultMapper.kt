@@ -1,6 +1,6 @@
 package com.kontvip.wisecoin.data.cloud.mapper
 
-import com.kontvip.wisecoin.domain.model.ServerResult
+import com.kontvip.wisecoin.domain.core.ServerResult
 import retrofit2.Response
 import java.lang.Exception
 import java.net.UnknownHostException

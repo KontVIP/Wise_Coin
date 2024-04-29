@@ -6,7 +6,8 @@ import com.kontvip.wisecoin.data.model.ClientInfo
 import com.kontvip.wisecoin.data.model.DefaultMonobankToken
 import com.kontvip.wisecoin.domain.MonobankToken
 import com.kontvip.wisecoin.domain.Repository
-import com.kontvip.wisecoin.domain.model.ServerResult
+import com.kontvip.wisecoin.domain.core.ServerResult
+import com.kontvip.wisecoin.domain.model.Payments
 import kotlinx.coroutines.delay
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
@@ -61,12 +62,20 @@ class DefaultRepository(
         )
     }
 
-    override suspend fun fetchPaymentsData(): ServerResult<*> {
+    override suspend fun fetchPaymentsData(
+        onSuccess: (Payments) -> Unit,
+        onError: (Int) -> Unit
+    ) {
         val currentTime = System.currentTimeMillis()
-        return cloudSource.fetchPayments(
+        val result = cloudSource.fetchPayments(
             cacheSource.getMonobankToken(),
             currentTime - TimeUnit.DAYS.toMillis(MONTH_IN_DAYS),
             currentTime
         )
+        if (result.isSuccessful()) {
+            onSuccess.invoke(result.extractData())
+        } else {
+            onError.invoke(result.errorResource())
+        }
     }
 }

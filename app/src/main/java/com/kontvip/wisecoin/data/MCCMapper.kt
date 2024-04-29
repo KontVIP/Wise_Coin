@@ -1,24 +1,26 @@
-package com.kontvip.wisecoin.domain
+package com.kontvip.wisecoin.data
 
 import com.google.gson.Gson
 import com.kontvip.wisecoin.R
-import com.kontvip.wisecoin.data.ResourceProvider
+import com.kontvip.wisecoin.data.core.IdRequest
 import com.kontvip.wisecoin.data.model.MCC
+import com.kontvip.wisecoin.domain.typeToken
+import dagger.Lazy
 
-interface MCCInteractor {
+interface MCCMapper {
 
-    fun findMccById(mccId: Int): MCC
+    fun map(mccId: Int): MCC
 
     class Default(
         private val resourceProvider: ResourceProvider,
-        private val gson: Gson
-    ) : MCCInteractor {
+        private val gson: Lazy<Gson>
+    ) : MCCMapper {
 
         private val mccList: List<MCC> by lazy {
-            gson.fromJson(resourceProvider.retrieveRawAsString(R.raw.mcc), typeToken<List<MCC>>())
+            gson.get().fromJson(resourceProvider.retrieveRawAsString(R.raw.mcc), typeToken<List<MCC>>())
         }
 
-        override fun findMccById(mccId: Int): MCC {
+        override fun map(mccId: Int): MCC {
             //binary search
             var left = 0
             var right = mccList.size - 1
@@ -26,7 +28,12 @@ interface MCCInteractor {
             while (left <= right) {
                 val mid = (left + right) / 2
                 val midMcc = mccList[mid]
-                val midMccId = midMcc.id
+                var midMccId = -1
+                midMcc.onIdRequested(object : IdRequest {
+                    override fun onIdProvided(id: String) {
+                        id.toIntOrNull()?.let { midMccId = it }
+                    }
+                })
 
                 when {
                     midMccId == mccId -> return midMcc

@@ -3,6 +3,7 @@ package com.kontvip.wisecoin.presentation.screens.pager.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.CategoryItemBinding
 import com.kontvip.wisecoin.presentation.model.CategoryItem
@@ -28,7 +29,26 @@ class CategoryAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(category: CategoryItem) {
-            category.display(binding)
+            category.display(object : CategoryItem.Display {
+                override fun displayCategoryName(name: String) {
+                    binding.categoryNameTextView.text = name
+                }
+
+                override fun displayImage(imageUrl: String) {
+                    if (imageUrl.isNotBlank()) {
+                        Glide.with(binding.categoryIconImageView).load(imageUrl)
+                            .into(binding.categoryIconImageView)
+                    } else {
+                        //todo: handle the icon
+                        binding.categoryIconImageView.setImageResource(R.drawable.ic_home)
+                    }
+                }
+
+                override fun displayCost(cost: String) {
+                    binding.costTextView.text = cost
+                }
+
+            })
             val percentage = ((category.getTotalCost() / categories.sumOf { it.getTotalCost() }) * 100).toString()
             binding.percentageTextView.text = binding.root.context.getString(R.string.percentage, percentage.take(4))
 
