@@ -4,12 +4,17 @@
     <string name="documentation_not_available">Documentation is not available!</string>
     <string name="why_we_need_token">Your Monobank token is required to retrieve and display your income and outcome transactions within the app.\n\nWe only access the necessary information required for tracking your financial transactions, and your data is handled with the utmost confidentiality.</string>
     <string name="login_with_token">Login with token</string>
-    <string name="home">Home</string>
+    <string name="error_too_many_requests">Too many requests error!</string>
+    <string name="error_unknown_token">Unknown token error!</string>
+    <string name="error_no_internet_connection">No Internet connection error!</string>
+    <string name="error_unknown">Service unavailable. Please, try later!</string>
     <string name="history">History</string>
     <string name="analytics">Analytics</string>
+    <string name="home">Home</string>
     <string name="menu">Menu</string>
     <string name="expenses">Expenses</string>
     <string name="income">Income</string>
     <string name="add_category">Add category</string>
     <string name="percentage">%s\%%</string>
+    <string name="sign_out">Sign out</string>
 </resources>

@@ -6,7 +6,9 @@ import com.kontvip.wisecoin.data.model.ClientInfo
 import com.kontvip.wisecoin.data.model.DefaultMonobankToken
 import com.kontvip.wisecoin.domain.MonobankToken
 import com.kontvip.wisecoin.domain.Repository
+import com.kontvip.wisecoin.domain.model.ServerResult
 import kotlinx.coroutines.delay
+import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -17,6 +19,7 @@ class DefaultRepository(
 
     companion object {
         private const val REPEAT_REQUEST_DELAY = 5000L
+        private const val MONTH_IN_DAYS = 28L
     }
 
     override fun saveMonobankToken(token: String) {
@@ -27,14 +30,14 @@ class DefaultRepository(
         return DefaultMonobankToken(cacheSource.getMonobankToken())
     }
 
-    override suspend fun fetchCloudClientInfo(token: String): ClientInfo {
+    override suspend fun fetchClientInfo(token: String): ServerResult<ClientInfo> {
         val clientInfo = cloudSource.fetchClientInfo(token)
-        if (clientInfo.isValid()) {
-            cacheSource.saveClientInfo(clientInfo)
+        if (clientInfo.isSuccessful()) {
+            cacheSource.saveClientInfo(clientInfo.extractData())
         } else {
             if (clientInfo.canRepeatRequest()) {
                 delay(REPEAT_REQUEST_DELAY)
-                return fetchCloudClientInfo(token)
+                return fetchClientInfo(token)
             }
             cacheSource.clearClientInfo()
         }
@@ -55,6 +58,15 @@ class DefaultRepository(
             onFailureListener = {
                 continuation.resume(false)
             }
+        )
+    }
+
+    override suspend fun fetchPaymentsData(): ServerResult<*> {
+        val currentTime = System.currentTimeMillis()
+        return cloudSource.fetchPayments(
+            cacheSource.getMonobankToken(),
+            currentTime - TimeUnit.DAYS.toMillis(MONTH_IN_DAYS),
+            currentTime
         )
     }
 }

@@ -1,6 +1,7 @@
 package com.kontvip.wisecoin.data.cloud.api
 
 import com.kontvip.wisecoin.data.model.ClientInfo
+import com.kontvip.wisecoin.data.model.Payments
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -11,7 +12,7 @@ interface MonobankApi {
 
     @Headers("Content-Type: application/json")
     @GET("client-info")
-    suspend fun fetchClientInfo(@Header("X-Token") token: String): Response<ClientInfo.Default>
+    suspend fun fetchClientInfo(@Header("X-Token") token: String): Response<ClientInfo>
 
     @Headers("Content-Type: application/json")
     @GET("statement/0/{from}/{to}")
@@ -19,5 +20,5 @@ interface MonobankApi {
         @Header("X-Token") token: String,
         @Path("from") from: Long,
         @Path("to") to: Long
-    ): Response<ClientInfo.Default>
+    ): Response<Payments>
 }

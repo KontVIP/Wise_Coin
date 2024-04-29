@@ -5,14 +5,16 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.DataSnapshot
 import com.kontvip.wisecoin.data.cloud.api.MonobankApi
 import com.kontvip.wisecoin.data.cloud.firebase.WiseCoinFirebase
-import com.kontvip.wisecoin.data.cloud.mapper.ResponseClientInfoMapper
-import com.kontvip.wisecoin.data.core.IdProvide
+import com.kontvip.wisecoin.data.cloud.mapper.ServerResultMapper
 import com.kontvip.wisecoin.data.core.IdRequest
 import com.kontvip.wisecoin.data.model.ClientInfo
+import com.kontvip.wisecoin.data.model.Payments
+import com.kontvip.wisecoin.domain.model.ServerResult
 
 interface CloudSource {
 
-    suspend fun fetchClientInfo(token: String): ClientInfo
+    suspend fun fetchClientInfo(token: String): ServerResult<ClientInfo>
+    suspend fun fetchPayments(token: String, from: Long, to: Long): ServerResult<Payments>
 
     fun lastUpdateTimeMillis(
         clientInfo: ClientInfo,
@@ -23,12 +25,18 @@ interface CloudSource {
     class Default(
         private val monobankApi: MonobankApi,
         private val wiseCoinFirebase: WiseCoinFirebase,
-        private val responseClientInfoMapper: ResponseClientInfoMapper
+        private val serverResultMapper: ServerResultMapper
     ) : CloudSource {
-        override suspend fun fetchClientInfo(token: String): ClientInfo {
-            return responseClientInfoMapper.map {
+        override suspend fun fetchClientInfo(token: String): ServerResult<ClientInfo> {
+            return serverResultMapper.map {
                 monobankApi.fetchClientInfo(token)
             }
+        }
+
+        override suspend fun fetchPayments(
+            token: String, from: Long, to: Long
+        ): ServerResult<Payments> {
+            return serverResultMapper.map { monobankApi.fetchPaymentsData(token, from, to) }
         }
 
         override fun lastUpdateTimeMillis(
