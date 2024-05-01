@@ -36,7 +36,8 @@ interface CloudSource {
         override suspend fun fetchPayments(
             token: String, from: Long, to: Long
         ): ServerResult<Payments> {
-            return serverResultMapper.map { monobankApi.fetchPaymentsData(token, from, to) }
+            //todo: test values
+            return serverResultMapper.map { monobankApi.fetchPaymentsData(token, 1697540431, 1700132431) }
         }
 
         override fun lastUpdateTimeMillis(

@@ -5,7 +5,7 @@ import com.kontvip.wisecoin.domain.model.Payments
 interface TransactionsInteractor {
 
     suspend fun fetchPaymentsData(
-        onSuccess: (Payments) -> Unit,
+        onSuccess: suspend (Payments) -> Unit,
         onError: (Int) -> Unit
     )
 
@@ -13,7 +13,7 @@ interface TransactionsInteractor {
         private val repository: Repository
     ) : TransactionsInteractor {
         override suspend fun fetchPaymentsData(
-            onSuccess: (Payments) -> Unit,
+            onSuccess: suspend (Payments) -> Unit,
             onError: (Int) -> Unit
         ) {
             repository.fetchPaymentsData(onSuccess, onError)

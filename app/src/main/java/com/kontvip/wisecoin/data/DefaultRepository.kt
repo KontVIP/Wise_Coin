@@ -63,7 +63,7 @@ class DefaultRepository(
     }
 
     override suspend fun fetchPaymentsData(
-        onSuccess: (Payments) -> Unit,
+        onSuccess: suspend (Payments) -> Unit,
         onError: (Int) -> Unit
     ) {
         val currentTime = System.currentTimeMillis()

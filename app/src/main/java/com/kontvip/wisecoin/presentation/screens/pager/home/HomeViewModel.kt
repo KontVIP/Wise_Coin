@@ -17,17 +17,4 @@ class HomeViewModel @Inject constructor(
     private val snackbarCommunication: SnackbarCommunication
 ) : ViewModel() {
 
-    fun handle() {
-        viewModelScope.launch(dispatcherList.io()) {
-            transactionsInteractor.fetchPaymentsData(
-                onSuccess = {
-                    it
-                },
-                onError = {
-                    snackbarCommunication.postValue(WiseCoinSnackbar.Error(messageRes = it))
-                }
-            )
-        }
-    }
-
 }

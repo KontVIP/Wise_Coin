@@ -11,7 +11,7 @@ interface DispatcherList {
     class Default : DispatcherList {
         override fun io() = Dispatchers.IO
 
-        override fun ui() = Dispatchers.Default
+        override fun ui() = Dispatchers.Main
     }
 
 }

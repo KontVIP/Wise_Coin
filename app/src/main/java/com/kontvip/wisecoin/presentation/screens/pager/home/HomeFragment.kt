@@ -29,8 +29,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         binding.categoriesRecyclerView.adapter = adapter
         binding.categoriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        viewModel.handle()
     }
 
 }

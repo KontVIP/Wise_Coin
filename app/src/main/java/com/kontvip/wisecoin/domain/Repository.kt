@@ -12,5 +12,5 @@ interface Repository {
     suspend fun fetchClientInfo(token: String): ServerResult<ClientInfo>
     suspend fun fetchCacheClientInfo(): ClientInfo
     suspend fun shouldFetchDataFromFirebase(): Boolean
-    suspend fun fetchPaymentsData(onSuccess: (Payments) -> Unit, onError: (Int) -> Unit)
+    suspend fun fetchPaymentsData(onSuccess: suspend (Payments) -> Unit, onError: (Int) -> Unit)
 }
