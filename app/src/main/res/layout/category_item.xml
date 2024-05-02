@@ -22,14 +22,15 @@
             android:importantForAccessibility="no"
             android:padding="4dp"
             android:scaleType="centerCrop"
-            tools:src="@drawable/ic_home" />
+            tools:src="@drawable/question_icon" />
 
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
+        android:layout_weight="1"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -37,10 +38,11 @@
             android:id="@+id/categoryNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:maxLines="1"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="House rent" />
+            tools:text="House rent very long" />
 
         <TextView
             android:id="@+id/percentageTextView"
@@ -54,12 +56,19 @@
 
     <TextView
         android:id="@+id/costTextView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_marginStart="8dp"
         android:gravity="end|center_vertical"
-        android:textSize="22sp"
         android:textStyle="bold"
-        tools:text="$1,40" />
+        tools:text="1,40" />
+
+    <TextView
+        android:id="@+id/currencyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="end|center_vertical"
+        android:text="@string/gryvna"
+        android:textStyle="bold" />
 
 </LinearLayout>

@@ -49,7 +49,7 @@ class DefaultRepository(
     }
 
     override suspend fun fetchPayments(
-        onPaymentReceived: suspend (List<PaymentDomain>) -> Unit, onError: (Int) -> Unit
+        onSuccess: suspend (List<PaymentDomain>) -> Unit, onError: (Int) -> Unit
     ) {
         val currentTime = System.currentTimeMillis()
         val result = cloudSource.fetchPayments(
@@ -60,17 +60,19 @@ class DefaultRepository(
         if (result.isSuccessful()) {
             val paymentsData = result.extractData().toList()
             cacheSource.savePayments(paymentsData)
+            fetchCachedPayments()
         } else {
             onError.invoke(result.errorResource())
         }
-        onPaymentReceived.invoke(cacheSource.getAllPayments().map {
-            it.map(object : PaymentData.Mapper<PaymentDomain> {
-                override fun map(
-                    id: String, time: Long, description: String, category: String, amount: Int
-                ): PaymentDomain {
-                    return PaymentDomain(id, time, description, category, amount)
-                }
-            })
-        })
+    }
+
+    override suspend fun fetchCachedPayments(): List<PaymentDomain> {
+        return cacheSource.getAllPayments().map { it.map(object : PaymentData.Mapper<PaymentDomain> {
+            override fun map(
+                id: String, time: Long, description: String, category: String, amount: Int, image: String
+            ): PaymentDomain {
+                return PaymentDomain(id, time, description, category, amount, image)
+            }
+        }) }
     }
 }

@@ -50,9 +50,9 @@ interface CacheSource {
             paymentDao.insertPayments(payments.map {
                 it.map(object : PaymentData.Mapper<PaymentEntity> {
                     override fun map(
-                        id: String, time: Long, description: String, category: String, amount: Int
+                        id: String, time: Long, description: String, category: String, amount: Int, image: String
                     ): PaymentEntity {
-                        return PaymentEntity(id, time, category, description, amount)
+                        return PaymentEntity(id, time, category, description, amount, image)
                     }
                 })
             })
@@ -60,7 +60,7 @@ interface CacheSource {
 
         override suspend fun getAllPayments(): List<PaymentData> {
             return paymentDao.getAllPayments().map {
-                PaymentData(it.id, it.time, it.description, it.category, it.amount)
+                PaymentData(it.id, it.time, it.description, it.category, it.amount, it.image)
             }
         }
     }

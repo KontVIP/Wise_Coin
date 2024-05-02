@@ -17,4 +17,5 @@
     <string name="add_category">Add category</string>
     <string name="percentage">%s\%%</string>
     <string name="sign_out">Sign out</string>
+    <string name="gryvna">$</string>
 </resources>

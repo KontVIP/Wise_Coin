@@ -10,6 +10,7 @@ interface Repository {
     suspend fun fetchClientInfo(token: String): ServerResult<ClientInfo>
     suspend fun fetchCacheClientInfo(): ClientInfo
     suspend fun fetchPayments(
-        onPaymentReceived: suspend (List<PaymentDomain>) -> Unit, onError: (Int) -> Unit
+        onSuccess: suspend (List<PaymentDomain>) -> Unit, onError: (Int) -> Unit
     )
+    suspend fun fetchCachedPayments(): List<PaymentDomain>
 }

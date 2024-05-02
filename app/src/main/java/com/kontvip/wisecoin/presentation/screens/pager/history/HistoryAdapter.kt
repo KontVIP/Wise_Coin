@@ -3,6 +3,8 @@ package com.kontvip.wisecoin.presentation.screens.pager.history
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.CategoryItemBinding
 import com.kontvip.wisecoin.domain.core.PaymentUiState
 import com.kontvip.wisecoin.domain.display.PaymentDisplay
@@ -43,9 +45,16 @@ class HistoryAdapter(
                 }
 
                 override fun displayAmount(amount: Int) {
-                    binding.costTextView.text = amount.toString()
+                    binding.costTextView.text = (amount.toFloat() / 100).toString()
                 }
 
+                override fun displayImage(image: String) {
+                    if (image.isNotBlank()) {
+                        Glide.with(binding.root).load(image).into(binding.categoryIconImageView)
+                    } else {
+                        binding.categoryIconImageView.setImageResource(R.drawable.question_icon)
+                    }
+                }
             })
         }
     }

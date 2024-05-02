@@ -4,26 +4,32 @@ import com.kontvip.wisecoin.domain.model.PaymentDomain
 
 interface TransactionsInteractor {
 
-    suspend fun <T> fetchPaymentsData(
+    suspend fun <T> fetchPayments(
         paymentMapper: PaymentDomain.Mapper<T>,
-        onPaymentReceived: suspend (List<T>) -> Unit,
+        onSuccess: suspend (List<T>) -> Unit,
         onError: (Int) -> Unit
     )
+
+    suspend fun<T> fetchCachedPayments(paymentMapper: PaymentDomain.Mapper<T>, ): List<T>
 
     class Default(
         private val repository: Repository
     ) : TransactionsInteractor {
-        override suspend fun <T> fetchPaymentsData(
+        override suspend fun <T> fetchPayments(
             paymentMapper: PaymentDomain.Mapper<T>,
-            onPaymentReceived: suspend (List<T>) -> Unit,
+            onSuccess: suspend (List<T>) -> Unit,
             onError: (Int) -> Unit
         ) {
             repository.fetchPayments(
-                onPaymentReceived = {
-                    onPaymentReceived.invoke(it.map { payment -> payment.map(paymentMapper) })
+                onSuccess = {
+                    onSuccess.invoke(it.map { payment -> payment.map(paymentMapper) })
                 },
                 onError = onError
             )
+        }
+
+        override suspend fun <T> fetchCachedPayments(paymentMapper: PaymentDomain.Mapper<T>): List<T> {
+            return repository.fetchCachedPayments().map { it.map(paymentMapper) }
         }
     }
 

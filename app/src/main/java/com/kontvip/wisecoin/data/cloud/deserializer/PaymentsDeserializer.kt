@@ -15,6 +15,7 @@ class PaymentsDeserializer(
         private const val DESCRIPTION_FIELD = "description"
         private const val MCC_FIELD = "mcc"
         private const val AMOUNT_FIELD = "amount"
+        private const val MONOBANK_DEFAULT_IMAGE_URL = "https://miro.medium.com/v2/resize:fit:2400/1*PxKUZIus4lJELdfYKYJuyA.png"
     }
 
     override fun deserialize(
@@ -32,7 +33,8 @@ class PaymentsDeserializer(
                     jsonObject.get(TIME_FIELD).asLong,
                     jsonObject.get(DESCRIPTION_FIELD).asString,
                     mccToCategoryMapper.map(jsonObject.get(MCC_FIELD).asInt),
-                    jsonObject.get(AMOUNT_FIELD).asInt
+                    jsonObject.get(AMOUNT_FIELD).asInt,
+                    MONOBANK_DEFAULT_IMAGE_URL
                 )
             )
         }

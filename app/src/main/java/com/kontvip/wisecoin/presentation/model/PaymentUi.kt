@@ -8,7 +8,8 @@ class PaymentUi(
     private val time: Long,
     private val description: String,
     private val category: String,
-    private val amount: Int
+    private val amount: Int,
+    private val image: String
 ) : PaymentUiState {
 
     override fun isInCategory(category: String): Boolean {
@@ -20,6 +21,7 @@ class PaymentUi(
         uiDisplay.displayDescription(description)
         uiDisplay.displayCategory(category)
         uiDisplay.displayAmount(amount)
+        uiDisplay.displayImage(image)
     }
 
 }
