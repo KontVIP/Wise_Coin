@@ -20,5 +20,5 @@ interface MonobankApi {
         @Header("X-Token") token: String,
         @Path("from") from: Long,
         @Path("to") to: Long
-    ): Response<List<PaymentData>>
+    ): Response<Array<PaymentData>>
 }

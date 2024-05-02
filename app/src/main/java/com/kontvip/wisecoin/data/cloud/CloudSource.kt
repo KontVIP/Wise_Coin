@@ -13,7 +13,7 @@ import kotlin.coroutines.suspendCoroutine
 interface CloudSource {
 
     suspend fun fetchClientInfo(token: String): ServerResult<ClientInfo>
-    suspend fun fetchPayments(token: String, from: Long, to: Long): ServerResult<List<PaymentData>>
+    suspend fun fetchPayments(token: String, from: Long, to: Long): ServerResult<Array<PaymentData>>
     suspend fun shouldFetchDataFromFirebase(clientInfo: ClientInfo, lastUpdateTime: Long): Boolean
 
     class Default(
@@ -29,7 +29,7 @@ interface CloudSource {
 
         override suspend fun fetchPayments(
             token: String, from: Long, to: Long
-        ): ServerResult<List<PaymentData>> {
+        ): ServerResult<Array<PaymentData>> {
             //todo: test values
             return serverResultMapper.map { monobankApi.fetchPaymentsData(token, 1697540431, 1700132431) }
         }

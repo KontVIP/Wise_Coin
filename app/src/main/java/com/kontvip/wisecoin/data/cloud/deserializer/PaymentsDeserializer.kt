@@ -7,7 +7,7 @@ import java.lang.reflect.Type
 
 class PaymentsDeserializer(
     private val mccToCategoryMapper: MccToCategoryMapper
-) : JsonDeserializer<List<PaymentData>> {
+) : JsonDeserializer<Array<PaymentData>> {
 
     companion object {
         private const val ID_FIELD = "id"
@@ -21,7 +21,7 @@ class PaymentsDeserializer(
         json: JsonElement?,
         typeOfT: Type?,
         context: JsonDeserializationContext?
-    ): List<PaymentData> {
+    ): Array<PaymentData> {
         val array = json?.asJsonArray
         val payments = mutableListOf<PaymentData>()
         array?.forEach {
@@ -36,6 +36,6 @@ class PaymentsDeserializer(
                 )
             )
         }
-        return payments
+        return payments.toTypedArray()
     }
 }

@@ -42,7 +42,7 @@ class DataModule {
         mccToCategoryMapper: MccToCategoryMapper
     ): Gson = GsonBuilder()
         .setLenient()
-        .registerTypeAdapter(typeToken<List<PaymentData>>(), PaymentsDeserializer(mccToCategoryMapper))
+        .registerTypeAdapter(Array<PaymentData>::class.java, PaymentsDeserializer(mccToCategoryMapper))
         .create()
 
     @Provides

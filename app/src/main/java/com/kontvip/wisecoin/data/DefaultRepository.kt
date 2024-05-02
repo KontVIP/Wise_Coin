@@ -58,7 +58,7 @@ class DefaultRepository(
             currentTime
         )
         if (result.isSuccessful()) {
-            val paymentsData = result.extractData()
+            val paymentsData = result.extractData().toList()
             cacheSource.savePayments(paymentsData)
         } else {
             onError.invoke(result.errorResource())
