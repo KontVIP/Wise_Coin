@@ -3,6 +3,7 @@ package com.kontvip.wisecoin.presentation.screens.pager.history
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kontvip.wisecoin.databinding.FragmentHistoryBinding
 import com.kontvip.wisecoin.presentation.core.BaseFragment
@@ -25,6 +26,9 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
             binding.historyRecyclerView.adapter = adapter
         }
 
+        binding.historyRecyclerView.addItemDecoration(
+            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        )
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 

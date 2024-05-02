@@ -7,7 +7,7 @@ import androidx.room.Query
 
 @Dao
 interface PaymentDao {
-    @Query("SELECT * FROM payments ORDER by time")
+    @Query("SELECT * FROM payments ORDER by time DESC")
     fun getAllPayments(): List<PaymentEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

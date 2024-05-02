@@ -9,6 +9,7 @@ interface TransactionsInteractor {
         onSuccess: suspend (List<T>) -> Unit,
         onError: (Int) -> Unit
     )
+    suspend fun updatePaymentsFromCloud(onUpdateFinished: () -> Unit)
 
     suspend fun<T> fetchCachedPayments(paymentMapper: PaymentDomain.Mapper<T>, ): List<T>
 
@@ -25,6 +26,17 @@ interface TransactionsInteractor {
                     onSuccess.invoke(it.map { payment -> payment.map(paymentMapper) })
                 },
                 onError = onError
+            )
+        }
+
+        override suspend fun updatePaymentsFromCloud(onUpdateFinished: () -> Unit) {
+            repository.fetchPayments(
+                onSuccess = {
+                    onUpdateFinished.invoke()
+                },
+                onError = {
+                    onUpdateFinished.invoke()
+                }
             )
         }
 

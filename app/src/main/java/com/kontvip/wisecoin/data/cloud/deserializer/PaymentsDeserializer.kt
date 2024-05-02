@@ -30,7 +30,7 @@ class PaymentsDeserializer(
             payments.add(
                 PaymentData(
                     jsonObject.get(ID_FIELD).asString,
-                    jsonObject.get(TIME_FIELD).asLong,
+                    jsonObject.get(TIME_FIELD).asLong  * 1000,
                     jsonObject.get(DESCRIPTION_FIELD).asString,
                     mccToCategoryMapper.map(jsonObject.get(MCC_FIELD).asInt),
                     jsonObject.get(AMOUNT_FIELD).asInt,

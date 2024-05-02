@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kontvip.wisecoin.core.DispatcherList
 import com.kontvip.wisecoin.domain.CredentialsInteractor
+import com.kontvip.wisecoin.domain.TransactionsInteractor
 import com.kontvip.wisecoin.presentation.core.NavigationCommunication
 import com.kontvip.wisecoin.presentation.core.SnackbarCommunication
 import com.kontvip.wisecoin.presentation.navigation.Destination
@@ -19,18 +20,20 @@ class MainViewModel @Inject constructor(
     private val navigationCommunication: NavigationCommunication,
     private val credentialsInteractor: CredentialsInteractor,
     private val dispatcherList: DispatcherList,
-    private val snackbarCommunication: SnackbarCommunication
+    private val snackbarCommunication: SnackbarCommunication,
+    private val transactionsInteractor: TransactionsInteractor
 ) : ViewModel() {
 
     fun init(isFirstRun: Boolean) {
         if (isFirstRun) {
             viewModelScope.launch(dispatcherList.io()) {
-                val destination = if (credentialsInteractor.isSavedTokenValid()) {
-                    Destination.PagerScreen
+                if (credentialsInteractor.isSavedTokenValid()) {
+                    transactionsInteractor.updatePaymentsFromCloud {
+                        navigationCommunication.postValue(Destination.PagerScreen)
+                    }
                 } else {
-                    Destination.AuthAutoExtractionScreen
+                    navigationCommunication.postValue(Destination.AuthAutoExtractionScreen)
                 }
-                navigationCommunication.postValue(destination)
             }
         }
     }

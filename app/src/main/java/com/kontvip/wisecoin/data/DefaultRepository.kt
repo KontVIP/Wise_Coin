@@ -60,7 +60,7 @@ class DefaultRepository(
         if (result.isSuccessful()) {
             val paymentsData = result.extractData().toList()
             cacheSource.savePayments(paymentsData)
-            fetchCachedPayments()
+            onSuccess.invoke(fetchCachedPayments())
         } else {
             onError.invoke(result.errorResource())
         }

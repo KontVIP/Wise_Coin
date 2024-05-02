@@ -9,6 +9,9 @@ import com.kontvip.wisecoin.databinding.CategoryItemBinding
 import com.kontvip.wisecoin.domain.core.PaymentUiState
 import com.kontvip.wisecoin.domain.display.PaymentDisplay
 import com.kontvip.wisecoin.presentation.model.PaymentUi
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class HistoryAdapter(
     private val payments: List<PaymentUi>
@@ -33,7 +36,9 @@ class HistoryAdapter(
         fun bind(category: PaymentUiState) {
             category.display(object : PaymentDisplay {
                 override fun displayTime(time: Long) {
-                    //TODO("Not yet implemented")
+                    val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+                    val date = Date(time)
+                    binding.dateTextView.text = sdf.format(date)
                 }
 
                 override fun displayDescription(description: String) {
