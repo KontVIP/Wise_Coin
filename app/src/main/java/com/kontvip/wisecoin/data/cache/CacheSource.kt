@@ -1,20 +1,24 @@
 package com.kontvip.wisecoin.data.cache
 
+import com.kontvip.wisecoin.data.cache.database.PaymentDao
+import com.kontvip.wisecoin.data.cache.database.PaymentEntity
 import com.kontvip.wisecoin.data.model.ClientInfo
+import com.kontvip.wisecoin.data.model.PaymentData
 
 interface CacheSource {
 
     fun saveMonobankToken(token: String)
     fun getMonobankToken(): String
-
     fun saveClientInfo(clientInfo: ClientInfo)
     fun fetchClientInfo(): ClientInfo
     fun clearClientInfo()
-
     fun getLastUpdateTimeMillis(): Long
+    suspend fun savePayments(payments: List<PaymentData>)
+    suspend fun getAllPayments(): List<PaymentData>
 
     class Default(
-        private val wiseCoinSharedPreferences: WiseCoinSharedPreferences
+        private val wiseCoinSharedPreferences: WiseCoinSharedPreferences,
+        private val paymentDao: PaymentDao
     ) : CacheSource {
 
         override fun saveMonobankToken(token: String) {
@@ -40,6 +44,24 @@ interface CacheSource {
         override fun getLastUpdateTimeMillis(): Long {
             TODO("Not yet implemented")
             //todo: add shared prefs
+        }
+
+        override suspend fun savePayments(payments: List<PaymentData>) {
+            paymentDao.insertPayments(payments.map {
+                it.map(object : PaymentData.Mapper<PaymentEntity> {
+                    override fun map(
+                        id: String, time: Long, description: String, category: String, amount: Int
+                    ): PaymentEntity {
+                        return PaymentEntity(id, time, category, description, amount)
+                    }
+                })
+            })
+        }
+
+        override suspend fun getAllPayments(): List<PaymentData> {
+            return paymentDao.getAllPayments().map {
+                PaymentData(it.id, it.time, it.description, it.category, it.amount)
+            }
         }
     }
 

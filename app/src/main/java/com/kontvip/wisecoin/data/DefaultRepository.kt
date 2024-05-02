@@ -4,14 +4,13 @@ import com.kontvip.wisecoin.data.cache.CacheSource
 import com.kontvip.wisecoin.data.cloud.CloudSource
 import com.kontvip.wisecoin.data.model.ClientInfo
 import com.kontvip.wisecoin.data.model.DefaultMonobankToken
+import com.kontvip.wisecoin.data.model.PaymentData
 import com.kontvip.wisecoin.domain.MonobankToken
 import com.kontvip.wisecoin.domain.Repository
 import com.kontvip.wisecoin.domain.core.ServerResult
-import com.kontvip.wisecoin.domain.model.Payments
+import com.kontvip.wisecoin.domain.model.PaymentDomain
 import kotlinx.coroutines.delay
 import java.util.concurrent.TimeUnit
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class DefaultRepository(
     private val cacheSource: CacheSource,
@@ -49,22 +48,8 @@ class DefaultRepository(
         return cacheSource.fetchClientInfo()
     }
 
-    override suspend fun shouldFetchDataFromFirebase(): Boolean = suspendCoroutine { continuation ->
-        val clientInfo = cacheSource.fetchClientInfo()
-        cloudSource.lastUpdateTimeMillis(clientInfo,
-            onSuccessListener = {
-                val timeMillis = it.getValue(Long::class.java)
-                continuation.resume(timeMillis != cacheSource.getLastUpdateTimeMillis())
-            },
-            onFailureListener = {
-                continuation.resume(false)
-            }
-        )
-    }
-
-    override suspend fun fetchPaymentsData(
-        onSuccess: suspend (Payments) -> Unit,
-        onError: (Int) -> Unit
+    override suspend fun fetchPayments(
+        onPaymentReceived: suspend (List<PaymentDomain>) -> Unit, onError: (Int) -> Unit
     ) {
         val currentTime = System.currentTimeMillis()
         val result = cloudSource.fetchPayments(
@@ -73,9 +58,19 @@ class DefaultRepository(
             currentTime
         )
         if (result.isSuccessful()) {
-            onSuccess.invoke(result.extractData())
+            val paymentsData = result.extractData()
+            cacheSource.savePayments(paymentsData)
         } else {
             onError.invoke(result.errorResource())
         }
+        onPaymentReceived.invoke(cacheSource.getAllPayments().map {
+            it.map(object : PaymentData.Mapper<PaymentDomain> {
+                override fun map(
+                    id: String, time: Long, description: String, category: String, amount: Int
+                ): PaymentDomain {
+                    return PaymentDomain(id, time, description, category, amount)
+                }
+            })
+        })
     }
 }

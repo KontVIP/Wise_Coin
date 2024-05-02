@@ -1,14 +1,13 @@
 package com.kontvip.wisecoin.data.cloud.deserializer
 
 import com.google.gson.*
-import com.kontvip.wisecoin.data.MCCMapper
-import com.kontvip.wisecoin.data.model.Payment
-import com.kontvip.wisecoin.domain.model.Payments
+import com.kontvip.wisecoin.data.mapper.MccToCategoryMapper
+import com.kontvip.wisecoin.data.model.PaymentData
 import java.lang.reflect.Type
 
 class PaymentsDeserializer(
-    private val mccMapper: MCCMapper
-) : JsonDeserializer<Payments> {
+    private val mccToCategoryMapper: MccToCategoryMapper
+) : JsonDeserializer<List<PaymentData>> {
 
     companion object {
         private const val ID_FIELD = "id"
@@ -22,17 +21,17 @@ class PaymentsDeserializer(
         json: JsonElement?,
         typeOfT: Type?,
         context: JsonDeserializationContext?
-    ): Payments {
+    ): List<PaymentData> {
         val array = json?.asJsonArray
-        val payments = Payments()
+        val payments = mutableListOf<PaymentData>()
         array?.forEach {
             val jsonObject = it.asJsonObject
             payments.add(
-                Payment(
+                PaymentData(
                     jsonObject.get(ID_FIELD).asString,
                     jsonObject.get(TIME_FIELD).asLong,
                     jsonObject.get(DESCRIPTION_FIELD).asString,
-                    mccMapper.map(jsonObject.get(MCC_FIELD).asInt),
+                    mccToCategoryMapper.map(jsonObject.get(MCC_FIELD).asInt),
                     jsonObject.get(AMOUNT_FIELD).asInt
                 )
             )

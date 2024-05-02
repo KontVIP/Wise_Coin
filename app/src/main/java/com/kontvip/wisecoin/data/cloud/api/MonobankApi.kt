@@ -1,7 +1,7 @@
 package com.kontvip.wisecoin.data.cloud.api
 
 import com.kontvip.wisecoin.data.model.ClientInfo
-import com.kontvip.wisecoin.domain.model.Payments
+import com.kontvip.wisecoin.data.model.PaymentData
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -20,5 +20,5 @@ interface MonobankApi {
         @Header("X-Token") token: String,
         @Path("from") from: Long,
         @Path("to") to: Long
-    ): Response<Payments>
+    ): Response<List<PaymentData>>
 }

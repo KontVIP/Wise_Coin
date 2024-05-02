@@ -2,15 +2,14 @@ package com.kontvip.wisecoin.domain
 
 import com.kontvip.wisecoin.data.model.ClientInfo
 import com.kontvip.wisecoin.domain.core.ServerResult
-import com.kontvip.wisecoin.domain.core.UiState
-import com.kontvip.wisecoin.domain.display.PaymentsDisplay
-import com.kontvip.wisecoin.domain.model.Payments
+import com.kontvip.wisecoin.domain.model.PaymentDomain
 
 interface Repository {
     fun saveMonobankToken(token: String)
     fun getMonobankToken(): MonobankToken
     suspend fun fetchClientInfo(token: String): ServerResult<ClientInfo>
     suspend fun fetchCacheClientInfo(): ClientInfo
-    suspend fun shouldFetchDataFromFirebase(): Boolean
-    suspend fun fetchPaymentsData(onSuccess: suspend (Payments) -> Unit, onError: (Int) -> Unit)
+    suspend fun fetchPayments(
+        onPaymentReceived: suspend (List<PaymentDomain>) -> Unit, onError: (Int) -> Unit
+    )
 }

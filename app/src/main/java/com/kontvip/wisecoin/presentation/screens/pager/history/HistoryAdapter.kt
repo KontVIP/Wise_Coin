@@ -3,17 +3,13 @@ package com.kontvip.wisecoin.presentation.screens.pager.history
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.kontvip.wisecoin.R
-import com.kontvip.wisecoin.data.model.MCC
 import com.kontvip.wisecoin.databinding.CategoryItemBinding
 import com.kontvip.wisecoin.domain.core.PaymentUiState
 import com.kontvip.wisecoin.domain.display.PaymentDisplay
-import com.kontvip.wisecoin.domain.model.Payments
-import com.kontvip.wisecoin.presentation.model.CategoryItem
+import com.kontvip.wisecoin.presentation.model.PaymentUi
 
 class HistoryAdapter(
-    private val payments: Payments
+    private val payments: List<PaymentUi>
 ) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,8 +38,8 @@ class HistoryAdapter(
                     binding.percentageTextView.text = description
                 }
 
-                override fun displayMcc(mcc: MCC) {
-                    //TODO("Not yet implemented")
+                override fun displayCategory(category: String) {
+                    binding.categoryNameTextView.text = category
                 }
 
                 override fun displayAmount(amount: Int) {

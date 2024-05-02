@@ -1,22 +1,26 @@
 package com.kontvip.wisecoin.di
 
 import android.content.Context
+import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kontvip.wisecoin.data.DefaultRepository
 import com.kontvip.wisecoin.data.DefaultTokenServerValidator
-import com.kontvip.wisecoin.data.MCCMapper
+import com.kontvip.wisecoin.data.mapper.MccToCategoryMapper
 import com.kontvip.wisecoin.data.ResourceProvider
 import com.kontvip.wisecoin.data.cache.CacheSource
 import com.kontvip.wisecoin.data.cache.WiseCoinSharedPreferences
+import com.kontvip.wisecoin.data.cache.database.PaymentDao
+import com.kontvip.wisecoin.data.cache.database.PaymentDatabase
 import com.kontvip.wisecoin.data.cloud.CloudSource
 import com.kontvip.wisecoin.data.cloud.api.MonobankApi
 import com.kontvip.wisecoin.data.cloud.deserializer.PaymentsDeserializer
 import com.kontvip.wisecoin.data.cloud.firebase.WiseCoinFirebase
 import com.kontvip.wisecoin.data.cloud.mapper.ServerResultMapper
+import com.kontvip.wisecoin.data.model.PaymentData
 import com.kontvip.wisecoin.domain.Repository
 import com.kontvip.wisecoin.domain.TokenServerValidator
-import com.kontvip.wisecoin.domain.model.Payments
+import com.kontvip.wisecoin.domain.typeToken
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
@@ -35,10 +39,10 @@ class DataModule {
     @Provides
     @Singleton
     fun provideGson(
-        mccMapper: MCCMapper
+        mccToCategoryMapper: MccToCategoryMapper
     ): Gson = GsonBuilder()
         .setLenient()
-        .registerTypeAdapter(Payments::class.java, PaymentsDeserializer(mccMapper))
+        .registerTypeAdapter(typeToken<List<PaymentData>>(), PaymentsDeserializer(mccToCategoryMapper))
         .create()
 
     @Provides
@@ -88,9 +92,13 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideCacheSource(wiseCoinSharedPreferences: WiseCoinSharedPreferences): CacheSource =
+    fun provideCacheSource(
+        wiseCoinSharedPreferences: WiseCoinSharedPreferences,
+        paymentDao: PaymentDao
+    ): CacheSource =
         CacheSource.Default(
-            wiseCoinSharedPreferences = wiseCoinSharedPreferences
+            wiseCoinSharedPreferences = wiseCoinSharedPreferences,
+            paymentDao = paymentDao
         )
 
     @Provides
@@ -122,9 +130,24 @@ class DataModule {
     fun provideMCCMapper(
         resourceProvider: ResourceProvider,
         gson: Lazy<Gson>
-    ): MCCMapper = MCCMapper.Default(
+    ): MccToCategoryMapper = MccToCategoryMapper.Default(
         resourceProvider = resourceProvider,
         gson = gson
     )
 
+    @Provides
+    @Singleton
+    fun providePaymentDatabase(@ApplicationContext appContext: Context): PaymentDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            PaymentDatabase::class.java,
+            "wise_coin_database"
+        ).fallbackToDestructiveMigration().build()
+    }
+
+    @Singleton
+    @Provides
+    fun providePaymentDao(database: PaymentDatabase): PaymentDao {
+        return database.paymentDao()
+    }
 }
