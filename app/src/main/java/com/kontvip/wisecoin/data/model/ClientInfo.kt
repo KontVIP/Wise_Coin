@@ -20,4 +20,12 @@ data class ClientInfo(
     interface Display : UiState.UiDisplay {
         fun displayClientName(name: String)
     }
+
+    fun <T> map(mapper: Mapper<T>): T {
+        return mapper.map(clientId, name)
+    }
+
+    interface Mapper<T> {
+        fun map(id: String, name: String): T
+    }
 }

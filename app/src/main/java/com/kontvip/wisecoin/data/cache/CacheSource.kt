@@ -12,7 +12,6 @@ interface CacheSource {
     fun saveClientInfo(clientInfo: ClientInfo)
     fun fetchClientInfo(): ClientInfo
     fun clearClientInfo()
-    fun getLastUpdateTimeMillis(): Long
     suspend fun savePayments(payments: List<PaymentData>)
     suspend fun getAllPayments(): List<PaymentData>
 
@@ -30,20 +29,23 @@ interface CacheSource {
         }
 
         override fun saveClientInfo(clientInfo: ClientInfo) {
-            //TODO("Not yet implemented")
+            clientInfo.map(object : ClientInfo.Mapper<Unit> {
+                override fun map(id: String, name: String) {
+                    wiseCoinSharedPreferences.saveClientId(id)
+                    wiseCoinSharedPreferences.saveClientName(name)
+                }
+            })
         }
 
         override fun fetchClientInfo(): ClientInfo {
-            TODO("Not yet implemented")
+            return ClientInfo(
+                wiseCoinSharedPreferences.getClientId(), wiseCoinSharedPreferences.getClientName()
+            )
         }
 
         override fun clearClientInfo() {
-            //TODO("Not yet implemented")
-        }
-
-        override fun getLastUpdateTimeMillis(): Long {
-            TODO("Not yet implemented")
-            //todo: add shared prefs
+            wiseCoinSharedPreferences.saveClientId("")
+            wiseCoinSharedPreferences.saveClientName("")
         }
 
         override suspend fun savePayments(payments: List<PaymentData>) {
