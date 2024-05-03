@@ -4,87 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:orientation="vertical">
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/percentageCardView"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:alpha="0.6"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false"
+        tools:cardBackgroundColor="@android:color/holo_blue_dark">
+
+        <TextView
+            android:id="@+id/percentageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:importantForAccessibility="no"
+            android:padding="4dp"
+            android:scaleType="centerCrop"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            tools:text="25.55%" />
+
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:cardCornerRadius="40dp"
-            app:cardElevation="0dp"
-            app:cardUseCompatPadding="false"
-            tools:cardBackgroundColor="@android:color/holo_blue_dark">
-
-            <ImageView
-                android:id="@+id/categoryIconImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:importantForAccessibility="no"
-                android:padding="4dp"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/question_icon" />
-
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/categoryNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:text="House rent very long" />
-
-            <TextView
-                android:id="@+id/percentageTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="18sp"
-                tools:text="26.3%" />
-
-        </LinearLayout>
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/costTextView"
+            android:id="@+id/categoryNameTextView"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:gravity="end|center_vertical"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="1,40" />
-
-        <TextView
-            android:id="@+id/currencyTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="end|center_vertical"
-            android:text="@string/gryvna"
-            android:textStyle="bold" />
+            tools:text="House rent very long" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/dateTextView"
+        android:id="@+id/costTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:textSize="16sp"
-        tools:text="31-08-2021 12:49:25" />
+        android:gravity="end|center_vertical"
+        android:textStyle="bold"
+        tools:text="1,40" />
+
+    <TextView
+        android:id="@+id/currencyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="end|center_vertical"
+        android:text="@string/gryvna"
+        android:textStyle="bold" />
 
 </LinearLayout>

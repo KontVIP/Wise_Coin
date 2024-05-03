@@ -7,10 +7,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kontvip.wisecoin.databinding.FragmentHistoryBinding
 import com.kontvip.wisecoin.presentation.core.BaseFragment
-import com.kontvip.wisecoin.presentation.model.CategoryItem
-import com.kontvip.wisecoin.presentation.model.TransactionItem
-import com.kontvip.wisecoin.presentation.model.Transactions
-import com.kontvip.wisecoin.presentation.screens.pager.home.CategoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

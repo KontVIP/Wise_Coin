@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/black_border"
+            android:background="@drawable/transanction_type_selected_bg"
             android:gravity="center"
             android:text="@string/expenses"
             android:textSize="20sp" />
@@ -51,7 +51,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            tools:listitem="@layout/category_item" />
+            tools:listitem="@layout/payment_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addCategoryFab"

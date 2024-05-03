@@ -33,7 +33,7 @@ class PaymentsDeserializer(
                     jsonObject.get(TIME_FIELD).asLong  * 1000,
                     jsonObject.get(DESCRIPTION_FIELD).asString,
                     mccToCategoryMapper.map(jsonObject.get(MCC_FIELD).asInt),
-                    jsonObject.get(AMOUNT_FIELD).asInt,
+                    jsonObject.get(AMOUNT_FIELD).asDouble,
                     MONOBANK_DEFAULT_IMAGE_URL
                 )
             )

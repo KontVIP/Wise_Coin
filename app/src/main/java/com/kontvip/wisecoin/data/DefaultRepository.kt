@@ -69,7 +69,7 @@ class DefaultRepository(
     override suspend fun fetchCachedPayments(): List<PaymentDomain> {
         return cacheSource.getAllPayments().map { it.map(object : PaymentData.Mapper<PaymentDomain> {
             override fun map(
-                id: String, time: Long, description: String, category: String, amount: Int, image: String
+                id: String, time: Long, description: String, category: String, amount: Double, image: String
             ): PaymentDomain {
                 return PaymentDomain(id, time, description, category, amount, image)
             }

@@ -52,7 +52,7 @@ interface CacheSource {
             paymentDao.insertPayments(payments.map {
                 it.map(object : PaymentData.Mapper<PaymentEntity> {
                     override fun map(
-                        id: String, time: Long, description: String, category: String, amount: Int, image: String
+                        id: String, time: Long, description: String, category: String, amount: Double, image: String
                     ): PaymentEntity {
                         return PaymentEntity(id, time, category, description, amount, image)
                     }

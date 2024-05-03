@@ -9,6 +9,6 @@ data class PaymentEntity(
     val time: Long,
     val category: String,
     val description: String,
-    val amount: Int,
+    val amount: Double,
     val image: String
 )

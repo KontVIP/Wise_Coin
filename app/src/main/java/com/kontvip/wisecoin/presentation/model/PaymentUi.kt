@@ -8,7 +8,7 @@ class PaymentUi(
     private val time: Long,
     private val description: String,
     private val category: String,
-    private val amount: Int,
+    private val amount: Double,
     private val image: String
 ) : PaymentUiState {
 
@@ -23,5 +23,9 @@ class PaymentUi(
         uiDisplay.displayAmount(amount)
         uiDisplay.displayImage(image)
     }
+
+    fun getCategory(): String = category
+
+    fun getCost(): Double = amount
 
 }

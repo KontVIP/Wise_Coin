@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kontvip.wisecoin.R
-import com.kontvip.wisecoin.databinding.CategoryItemBinding
+import com.kontvip.wisecoin.databinding.PaymentItemBinding
 import com.kontvip.wisecoin.domain.core.PaymentUiState
 import com.kontvip.wisecoin.domain.display.PaymentDisplay
 import com.kontvip.wisecoin.presentation.model.PaymentUi
@@ -19,7 +19,7 @@ class HistoryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = CategoryItemBinding.inflate(inflater, parent, false)
+        val binding = PaymentItemBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -30,7 +30,7 @@ class HistoryAdapter(
     override fun getItemCount(): Int = payments.size
 
     inner class ViewHolder(
-        private val binding: CategoryItemBinding
+        private val binding: PaymentItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(category: PaymentUiState) {
@@ -42,22 +42,22 @@ class HistoryAdapter(
                 }
 
                 override fun displayDescription(description: String) {
-                    binding.percentageTextView.text = description
+                    binding.descriptionTextView.text = description
                 }
 
                 override fun displayCategory(category: String) {
                     binding.categoryNameTextView.text = category
                 }
 
-                override fun displayAmount(amount: Int) {
-                    binding.costTextView.text = (amount.toFloat() / 100).toString()
+                override fun displayAmount(amount: Double) {
+                    binding.costTextView.text = (amount / 100).toString()
                 }
 
                 override fun displayImage(image: String) {
                     if (image.isNotBlank()) {
-                        Glide.with(binding.root).load(image).into(binding.categoryIconImageView)
+                        Glide.with(binding.root).load(image).into(binding.paymentIconImageView)
                     } else {
-                        binding.categoryIconImageView.setImageResource(R.drawable.question_icon)
+                        binding.paymentIconImageView.setImageResource(R.drawable.question_icon)
                     }
                 }
             })

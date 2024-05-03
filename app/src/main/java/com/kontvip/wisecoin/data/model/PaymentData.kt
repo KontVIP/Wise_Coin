@@ -5,7 +5,7 @@ data class PaymentData(
     private val time: Long,
     private val description: String,
     private val category: String,
-    private val amount: Int,
+    private val amount: Double,
     private val image: String
 ) {
 
@@ -14,7 +14,7 @@ data class PaymentData(
     }
 
     interface Mapper<T> {
-        fun map(id: String, time: Long, description: String, category: String, amount: Int, image: String): T
+        fun map(id: String, time: Long, description: String, category: String, amount: Double, image: String): T
     }
 
 }
