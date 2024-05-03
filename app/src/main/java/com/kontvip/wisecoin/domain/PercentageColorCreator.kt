@@ -6,6 +6,7 @@ interface PercentageColorCreator {
 
     fun getColorForPercentage(percentage: Double, invertPercentage: Boolean = false): Int
     fun isColorDark(color: Int): Boolean
+    fun getColorForString(input: String): Int
 
     class Default : PercentageColorCreator {
 
@@ -18,17 +19,17 @@ interface PercentageColorCreator {
 
             val proportion = clampedValue / 100.0
 
-            val adjustedProportion = if (proportion <= 0.5) {
-                proportion * 2
-            } else {
-                0.5 + (proportion - 0.5) * 0.5
-            }
-
-            val r = (Color.red(green) * adjustedProportion + Color.red(red) * (1 - adjustedProportion)).toInt()
-            val g = (Color.green(green) * adjustedProportion + Color.green(red) * (1 - adjustedProportion)).toInt()
-            val b = (Color.blue(green) * adjustedProportion + Color.blue(red) * (1 - adjustedProportion)).toInt()
+            val r = (Color.red(green) * proportion + Color.red(red) * (1 - proportion)).toInt()
+            val g = (Color.green(green) * proportion + Color.green(red) * (1 - proportion)).toInt()
+            val b = (Color.blue(green) * proportion + Color.blue(red) * (1 - proportion)).toInt()
 
             return Color.rgb(r, g, b)
+        }
+
+        override fun getColorForString(input: String): Int {
+            val hash = input.hashCode().toFloat()
+            val hue = (hash * 3.6f) % 360f
+            return Color.HSVToColor(floatArrayOf(hue, 1.0f, 1.0f))
         }
 
         override fun isColorDark(color: Int): Boolean {

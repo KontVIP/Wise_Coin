@@ -12,6 +12,28 @@ data class CategoryItem(
         uiDisplay.displayCost((getTotalCost() / 100).toString())
     }
 
+    fun getTotalExpenses(): Double {
+        var expenses = 0.0
+        payments.forEach {
+            val cost = it.getCost()
+            if (cost < 0) {
+                expenses += cost
+            }
+        }
+        return expenses
+    }
+
+    fun getTotalIncomes(): Double {
+        var incomes = 0.0
+        payments.forEach {
+            val cost = it.getCost()
+            if (cost >= 0) {
+                incomes += cost
+            }
+        }
+        return incomes
+    }
+
     fun getTotalCost(): Double = payments.sumOf { it.getCost() }
 
     interface Display : UiState.UiDisplay {

@@ -10,14 +10,17 @@ import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.CategoryItemBinding
 import com.kontvip.wisecoin.domain.PercentageColorCreator
 import com.kontvip.wisecoin.presentation.model.CategoryItem
+import java.text.DecimalFormat
 
 class CategoryAdapter(
-    private var categories: List<CategoryItem>
+    private var categories: List<CategoryItem>,
+    private var isExpenses: Boolean
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
-    fun changeItems(categories: List<CategoryItem>) {
+    fun changeItems(categories: List<CategoryItem>, isExpenses: Boolean) {
         this.categories = categories
+        this.isExpenses = isExpenses
         notifyDataSetChanged()
     }
 
@@ -45,7 +48,7 @@ class CategoryAdapter(
 
                 override fun displayCost(cost: String) {
                     binding.costTextView.text = cost
-                    if (cost.contains("-")) {
+                    if (isExpenses) {
                         binding.costTextView.setTextColor(Color.RED)
                         binding.currencyTextView.setTextColor(Color.RED)
                     } else {
@@ -55,18 +58,20 @@ class CategoryAdapter(
                     }
                 }
             })
-            val percentage = (category.getTotalCost() / categories.sumOf { it.getTotalCost() }) * 100
-            binding.percentageTextView.text = binding.root.context.getString(R.string.percentage, if (percentage == 100.0) "100" else percentage.toString().take(4))
+
+            val percentage = (if (isExpenses) {
+                (category.getTotalExpenses() / categories.sumOf { it.getTotalExpenses() })
+            } else {
+                (category.getTotalIncomes() / categories.sumOf { it.getTotalIncomes() })
+            })  * 100
+
+            val roundedPercentage = DecimalFormat("#.#").format(percentage.toFloat())
+            binding.percentageTextView.text = binding.root.context.getString(R.string.percentage, roundedPercentage.toString())
 
             val colorCreator = PercentageColorCreator.Default()
-            val circleColor = colorCreator.getColorForPercentage(percentage, category.getTotalCost() < 0)
-            val resources = binding.root.resources
+            val circleColor = colorCreator.getColorForString(category.toString())//colorCreator.getColorForPercentage(percentage, isExpenses)
             binding.percentageTextView.setTextColor(
-                ResourcesCompat.getColor(
-                    resources,
-                    if (colorCreator.isColorDark(circleColor)) R.color.white else R.color.black,
-                    null
-                )
+                if (colorCreator.isColorDark(circleColor)) Color.WHITE else Color.BLACK
             )
             binding.percentageCardView.setCardBackgroundColor(circleColor)
         }
