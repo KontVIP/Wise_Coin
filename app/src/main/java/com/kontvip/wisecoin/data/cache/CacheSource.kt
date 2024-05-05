@@ -13,8 +13,9 @@ interface CacheSource {
     fun saveClientInfo(clientInfo: ClientInfo)
     fun fetchClientInfo(): ClientInfo
     fun clearClientInfo()
-    suspend fun savePayments(payments: List<PaymentData>)
     suspend fun getAllPayments(period: TransactionPeriod): List<PaymentData>
+    suspend fun savePayments(payments: List<PaymentData>)
+    suspend fun savePayment(payment: PaymentData)
 
     class Default(
         private val wiseCoinSharedPreferences: WiseCoinSharedPreferences,
@@ -65,6 +66,10 @@ interface CacheSource {
             return paymentDao.getPaymentsWithinPeriod(period.from(), period.to()).map {
                 PaymentData(it.id, it.time, it.description, it.category, it.amount, it.image)
             }
+        }
+
+        override suspend fun savePayment(payment: PaymentData) {
+            savePayments(listOf(payment))
         }
     }
 

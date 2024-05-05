@@ -14,12 +14,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/navigationAnalytics"
-        android:icon="@drawable/ic_analytics"
-        android:title="@string/analytics"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/navigationMenu"
         android:icon="@drawable/ic_menu"
         android:title="@string/menu"

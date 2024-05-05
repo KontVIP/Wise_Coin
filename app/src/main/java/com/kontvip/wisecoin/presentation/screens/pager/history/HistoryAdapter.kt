@@ -36,7 +36,7 @@ class HistoryAdapter(
         fun bind(category: PaymentUiState) {
             category.display(object : PaymentDisplay {
                 override fun displayTime(time: Long) {
-                    val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+                    val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
                     val date = Date(time)
                     binding.dateTextView.text = sdf.format(date)
                 }

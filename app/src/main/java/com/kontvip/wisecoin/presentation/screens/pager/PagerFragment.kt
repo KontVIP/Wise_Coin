@@ -9,7 +9,6 @@ import com.google.android.material.navigation.NavigationBarView
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.FragmentPagerBinding
 import com.kontvip.wisecoin.presentation.core.BaseFragment
-import com.kontvip.wisecoin.presentation.screens.pager.analytics.AnalyticsFragment
 import com.kontvip.wisecoin.presentation.screens.pager.history.HistoryFragment
 import com.kontvip.wisecoin.presentation.screens.pager.home.HomeFragment
 import com.kontvip.wisecoin.presentation.screens.pager.menu.MenuFragment
@@ -38,7 +37,6 @@ class PagerFragment : BaseFragment<FragmentPagerBinding>(), NavigationBarView.On
         val fragment = when (item.itemId) {
             R.id.navigationHome -> HomeFragment()
             R.id.navigationHistory -> HistoryFragment()
-            R.id.navigationAnalytics -> AnalyticsFragment()
             R.id.navigationMenu -> MenuFragment()
             else -> return false
         }

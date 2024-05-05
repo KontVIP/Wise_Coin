@@ -95,6 +95,9 @@ dependencies {
     //Splash screen
     implementation("androidx.core:core-splashscreen:1.0.1")
 
+    //Keyboard listener
+    implementation("net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3")
+
     //Test implementation
     testImplementation("org.mockito:mockito-core:3.+")
 }

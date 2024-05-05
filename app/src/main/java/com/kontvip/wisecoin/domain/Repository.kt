@@ -13,4 +13,5 @@ interface Repository {
         onSuccess: suspend (List<PaymentDomain>) -> Unit, onError: (Int) -> Unit
     )
     suspend fun fetchCachedPayments(period: TransactionPeriod): List<PaymentDomain>
+    suspend fun savePayment(payment: PaymentDomain)
 }

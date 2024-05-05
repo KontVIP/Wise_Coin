@@ -32,7 +32,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         )
         if (isExpensesSelected) fetchExpenses(adapter) else fetchIncomes(adapter)
 
-
         val transactionDisplay = object : TransactionPeriod.Display {
             override fun displayPeriodName(periodNameResource: Int) {
                 binding.timePeriodTextView.setText(periodNameResource)
@@ -69,6 +68,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 binding.incomeButton.setTextColor(Color.BLACK)
                 fetchIncomes(adapter)
             }
+        }
+
+        binding.addTransactionFab.onClick {
+            viewModel.navigateToAddTransactiontScreen()
         }
     }
 

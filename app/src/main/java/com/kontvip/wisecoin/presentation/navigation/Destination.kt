@@ -6,12 +6,14 @@ import com.kontvip.wisecoin.presentation.screens.auth.AuthAutoExtractionFragment
 import com.kontvip.wisecoin.presentation.screens.auth.AuthManuallyFragment
 import com.kontvip.wisecoin.presentation.screens.pager.PagerFragment
 import com.kontvip.wisecoin.presentation.screens.splash.AuthPreloadingFragment
+import com.kontvip.wisecoin.presentation.screens.transaction.AddTransactionFragment
 
 abstract class Destination(private val canNavigateBack: Boolean) {
 
     open fun addTransaction(transaction: FragmentTransaction, container: Int): FragmentTransaction {
         return if (canNavigateBack) {
-            transaction.add(container, fragment())
+            val fragment = fragment()
+            transaction.addToBackStack(fragment.tag).add(container, fragment)
         } else {
             transaction.replace(container, fragment())
         }
@@ -33,5 +35,9 @@ abstract class Destination(private val canNavigateBack: Boolean) {
 
     object PagerScreen : Destination(canNavigateBack = false) {
         override fun fragment(): Fragment = PagerFragment()
+    }
+
+    object AddTransactionScreen : Destination(canNavigateBack = true) {
+        override fun fragment(): Fragment = AddTransactionFragment()
     }
 }

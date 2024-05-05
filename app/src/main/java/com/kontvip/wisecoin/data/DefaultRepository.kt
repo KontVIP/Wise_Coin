@@ -76,4 +76,14 @@ class DefaultRepository(
             }
         }) }
     }
+
+    override suspend fun savePayment(payment: PaymentDomain) {
+        cacheSource.savePayment(payment.map(object : PaymentDomain.Mapper<PaymentData> {
+            override fun map(
+                id: String, time: Long, description: String, category: String, amount: Double, image: String
+            ): PaymentData {
+                return PaymentData(id, time, description, category, amount, image)
+            }
+        }))
+    }
 }

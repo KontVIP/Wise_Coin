@@ -6,8 +6,10 @@ import com.kontvip.wisecoin.core.DispatcherList
 import com.kontvip.wisecoin.domain.TransactionPeriod
 import com.kontvip.wisecoin.domain.TransactionsInteractor
 import com.kontvip.wisecoin.domain.model.PaymentDomain
+import com.kontvip.wisecoin.presentation.core.NavigationCommunication
 import com.kontvip.wisecoin.presentation.model.CategoryItem
 import com.kontvip.wisecoin.presentation.model.PaymentUi
+import com.kontvip.wisecoin.presentation.navigation.Destination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -17,7 +19,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val transactionsInteractor: TransactionsInteractor,
     private val dispatcherList: DispatcherList,
-    private val paymentMapper: PaymentDomain.Mapper<PaymentUi>
+    private val paymentMapper: PaymentDomain.Mapper<PaymentUi>,
+    private val navigationCommunication: NavigationCommunication
 ) : ViewModel() {
 
     fun fetchCategories(period: TransactionPeriod, onFetched: (List<CategoryItem>) -> Unit) {
@@ -42,6 +45,10 @@ class HomeViewModel @Inject constructor(
         fetchCategories(period) {
             onFetched.invoke(it.filter { it.getTotalCost() >= 0 })
         }
+    }
+
+    fun navigateToAddTransactiontScreen() {
+        navigationCommunication.postValue(Destination.AddTransactionScreen)
     }
 
 }

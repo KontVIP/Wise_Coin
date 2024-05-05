@@ -24,4 +24,16 @@
     <string name="month">Month</string>
     <string name="six_month">Six Months</string>
     <string name="year">Year</string>
+    <string name="category">Category</string>
+    <string name="amount_price">Amount (price)</string>
+    <string name="description">Description</string>
+    <string name="transaction_time">Transaction time:</string>
+    <string name="set_time">Set Time</string>
+    <string name="transaction_image">Transaction image</string>
+    <string name="add_transaction">Add transaction</string>
+    <string name="create">Create</string>
+    <string name="error_enter_valid_amount">Enter a valid amount(price)!</string>
+    <string name="error_enter_category">Enter a valid category!</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 </resources>

@@ -9,13 +9,12 @@ interface TransactionsInteractor {
         onSuccess: suspend (List<T>) -> Unit,
         onError: (Int) -> Unit
     )
-
     suspend fun updatePaymentsFromCloud(onUpdateFinished: () -> Unit)
-
     suspend fun <T> fetchCachedPayments(
         period: TransactionPeriod,
         paymentMapper: PaymentDomain.Mapper<T>,
     ): List<T>
+    suspend fun savePayment(payment: PaymentDomain)
 
     class Default(
         private val repository: Repository
@@ -49,6 +48,10 @@ interface TransactionsInteractor {
             paymentMapper: PaymentDomain.Mapper<T>
         ): List<T> {
             return repository.fetchCachedPayments(period).map { it.map(paymentMapper) }
+        }
+
+        override suspend fun savePayment(payment: PaymentDomain) {
+            repository.savePayment(payment)
         }
     }
 
