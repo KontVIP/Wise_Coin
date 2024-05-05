@@ -41,9 +41,15 @@ class CategoryAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(category: CategoryItem) {
+            val colorCreator = PercentageColorCreator.Default()
             category.display(object : CategoryItem.Display {
                 override fun displayCategoryName(name: String) {
                     binding.categoryNameTextView.text = name
+                    val circleColor = colorCreator.getColorForString(name)
+                    binding.percentageTextView.setTextColor(
+                        if (colorCreator.isColorDark(circleColor)) Color.WHITE else Color.BLACK
+                    )
+                    binding.percentageCardView.setCardBackgroundColor(circleColor)
                 }
 
                 override fun displayCost(cost: String) {
@@ -67,13 +73,6 @@ class CategoryAdapter(
 
             val roundedPercentage = DecimalFormat("#.#").format(percentage.toFloat())
             binding.percentageTextView.text = binding.root.context.getString(R.string.percentage, roundedPercentage.toString())
-
-            val colorCreator = PercentageColorCreator.Default()
-            val circleColor = colorCreator.getColorForString(category.toString())//colorCreator.getColorForPercentage(percentage, isExpenses)
-            binding.percentageTextView.setTextColor(
-                if (colorCreator.isColorDark(circleColor)) Color.WHITE else Color.BLACK
-            )
-            binding.percentageCardView.setCardBackgroundColor(circleColor)
         }
     }
 

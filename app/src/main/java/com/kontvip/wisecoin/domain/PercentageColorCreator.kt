@@ -1,6 +1,7 @@
 package com.kontvip.wisecoin.domain
 
 import android.graphics.Color
+import kotlin.random.Random
 
 interface PercentageColorCreator {
 
@@ -9,6 +10,10 @@ interface PercentageColorCreator {
     fun getColorForString(input: String): Int
 
     class Default : PercentageColorCreator {
+
+        companion object {
+            private val colorsForStrings = mutableMapOf<String, Int>()
+        }
 
         override fun getColorForPercentage(percentage: Double, invertPercentage: Boolean): Int {
             val finalPercentage = if (invertPercentage) 100 - percentage else percentage
@@ -26,10 +31,13 @@ interface PercentageColorCreator {
             return Color.rgb(r, g, b)
         }
 
+
         override fun getColorForString(input: String): Int {
-            val hash = input.hashCode().toFloat()
-            val hue = (hash * 3.6f) % 360f
-            return Color.HSVToColor(floatArrayOf(hue, 1.0f, 1.0f))
+            return colorsForStrings.getOrPut(input) {
+                val hash = input.hashCode()
+                val hue = (Random(hash).nextInt(0, Int.MAX_VALUE) * 3.6f) % 360f
+                Color.HSVToColor(floatArrayOf(hue, 1.0f, 1.0f))
+            }
         }
 
         override fun isColorDark(color: Int): Boolean {

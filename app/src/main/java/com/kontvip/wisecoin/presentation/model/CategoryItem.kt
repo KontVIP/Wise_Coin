@@ -36,6 +36,10 @@ data class CategoryItem(
 
     fun getTotalCost(): Double = payments.sumOf { it.getCost() }
 
+    fun provideName(receiveName: ReceiveName) {
+        receiveName.onNameReceived(name)
+    }
+
     interface Display : UiState.UiDisplay {
         fun displayCategoryName(name: String)
         fun displayCost(cost: String)
