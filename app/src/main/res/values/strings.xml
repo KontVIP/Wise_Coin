@@ -18,4 +18,10 @@
     <string name="percentage">%s\%%</string>
     <string name="sign_out">Sign out</string>
     <string name="gryvna">$</string>
+    <string name="smaller_period">Smaller period</string>
+    <string name="bigger_period">Bigger period.</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="six_month">Six Months</string>
+    <string name="year">Year</string>
 </resources>

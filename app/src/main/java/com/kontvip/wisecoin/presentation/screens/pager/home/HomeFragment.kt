@@ -1,5 +1,6 @@
 package com.kontvip.wisecoin.presentation.screens.pager.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.FragmentHomeBinding
+import com.kontvip.wisecoin.domain.TransactionPeriod
 import com.kontvip.wisecoin.presentation.core.BaseFragment
 import com.kontvip.wisecoin.presentation.onClick
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +19,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val viewModel by viewModels<HomeViewModel>()
 
     private var isExpensesSelected = true
+    private var transactionPeriod: TransactionPeriod = TransactionPeriod.Month
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,33 +30,59 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.categoriesRecyclerView.addItemDecoration(
             DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         )
-        viewModel.fetchExpenses {
+        if (isExpensesSelected) fetchExpenses(adapter) else fetchIncomes(adapter)
+
+
+        val transactionDisplay = object : TransactionPeriod.Display {
+            override fun displayPeriodName(periodNameResource: Int) {
+                binding.timePeriodTextView.setText(periodNameResource)
+            }
+        }
+        binding.biggerPeriodImageView.onClick {
+            transactionPeriod = transactionPeriod.next()
+            transactionPeriod.display(transactionDisplay)
+            if (isExpensesSelected) fetchExpenses(adapter) else fetchIncomes(adapter)
+        }
+        binding.smallerPeriodImageView.onClick {
+            transactionPeriod = transactionPeriod.previous()
+            transactionPeriod.display(transactionDisplay)
+            if (isExpensesSelected) fetchExpenses(adapter) else fetchIncomes(adapter)
+        }
+
+        binding.expensesButton.onClick {
+            if (!isExpensesSelected) {
+                isExpensesSelected = true
+                binding.expensesButton.setBackgroundResource(R.drawable.transaction_type_selected_bg)
+                binding.incomeButton.setBackgroundResource(R.drawable.black_border)
+                binding.expensesButton.setTextColor(Color.BLACK)
+                binding.incomeButton.setTextColor(Color.WHITE)
+                fetchExpenses(adapter)
+            }
+        }
+
+        binding.incomeButton.onClick {
+            if (isExpensesSelected) {
+                isExpensesSelected = false
+                binding.incomeButton.setBackgroundResource(R.drawable.transaction_type_selected_bg)
+                binding.expensesButton.setBackgroundResource(R.drawable.black_border)
+                binding.expensesButton.setTextColor(Color.WHITE)
+                binding.incomeButton.setTextColor(Color.BLACK)
+                fetchIncomes(adapter)
+            }
+        }
+    }
+
+    private fun fetchExpenses(adapter: CategoryAdapter) {
+        viewModel.fetchExpenses(transactionPeriod) {
             binding.pieChart.addCategoriesChartData(it, isExpensesSelected)
             adapter.changeItems(it, isExpensesSelected)
         }
+    }
 
-        binding.expensesTextView.onClick {
-            if (!isExpensesSelected) {
-                isExpensesSelected = true
-                binding.expensesTextView.setBackgroundResource(R.drawable.transanction_type_selected_bg)
-                binding.incomeTextView.setBackgroundResource(R.drawable.black_border)
-                viewModel.fetchExpenses {
-                    binding.pieChart.addCategoriesChartData(it, isExpensesSelected)
-                    adapter.changeItems(it, isExpensesSelected)
-                }
-            }
-        }
-
-        binding.incomeTextView.onClick {
-            if (isExpensesSelected) {
-                isExpensesSelected = false
-                binding.incomeTextView.setBackgroundResource(R.drawable.transanction_type_selected_bg)
-                binding.expensesTextView.setBackgroundResource(R.drawable.black_border)
-                viewModel.fetchIncomes {
-                    binding.pieChart.addCategoriesChartData(it, isExpensesSelected)
-                    adapter.changeItems(it, isExpensesSelected)
-                }
-            }
+    private fun fetchIncomes(adapter: CategoryAdapter) {
+        viewModel.fetchIncomes(transactionPeriod) {
+            binding.pieChart.addCategoriesChartData(it, isExpensesSelected)
+            adapter.changeItems(it, isExpensesSelected)
         }
     }
 

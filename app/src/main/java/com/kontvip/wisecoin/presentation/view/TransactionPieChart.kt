@@ -52,7 +52,7 @@ class TransactionPieChart @JvmOverloads constructor(
         setDrawEntryLabels(false)
         data = PieData(dataSet)
         setDrawCenterText(true)
-        centerText = (total / 100).toString()
+        centerText = (total / 100).toString() + "$"
         val green = ResourcesCompat.getColor(resources, R.color.green,null)
         setCenterTextColor(if (isExpenses) Color.RED else green)
         invalidate()

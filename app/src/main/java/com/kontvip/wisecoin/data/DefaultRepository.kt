@@ -7,6 +7,7 @@ import com.kontvip.wisecoin.data.model.DefaultMonobankToken
 import com.kontvip.wisecoin.data.model.PaymentData
 import com.kontvip.wisecoin.domain.MonobankToken
 import com.kontvip.wisecoin.domain.Repository
+import com.kontvip.wisecoin.domain.TransactionPeriod
 import com.kontvip.wisecoin.domain.core.ServerResult
 import com.kontvip.wisecoin.domain.model.PaymentDomain
 import kotlinx.coroutines.delay
@@ -60,14 +61,14 @@ class DefaultRepository(
         if (result.isSuccessful()) {
             val paymentsData = result.extractData().toList()
             cacheSource.savePayments(paymentsData)
-            onSuccess.invoke(fetchCachedPayments())
+            onSuccess.invoke(fetchCachedPayments(TransactionPeriod.Year))
         } else {
             onError.invoke(result.errorResource())
         }
     }
 
-    override suspend fun fetchCachedPayments(): List<PaymentDomain> {
-        return cacheSource.getAllPayments().map { it.map(object : PaymentData.Mapper<PaymentDomain> {
+    override suspend fun fetchCachedPayments(period: TransactionPeriod): List<PaymentDomain> {
+        return cacheSource.getAllPayments(period).map { it.map(object : PaymentData.Mapper<PaymentDomain> {
             override fun map(
                 id: String, time: Long, description: String, category: String, amount: Double, image: String
             ): PaymentDomain {

@@ -4,6 +4,7 @@ import com.kontvip.wisecoin.data.cache.database.PaymentDao
 import com.kontvip.wisecoin.data.cache.database.PaymentEntity
 import com.kontvip.wisecoin.data.model.ClientInfo
 import com.kontvip.wisecoin.data.model.PaymentData
+import com.kontvip.wisecoin.domain.TransactionPeriod
 
 interface CacheSource {
 
@@ -13,7 +14,7 @@ interface CacheSource {
     fun fetchClientInfo(): ClientInfo
     fun clearClientInfo()
     suspend fun savePayments(payments: List<PaymentData>)
-    suspend fun getAllPayments(): List<PaymentData>
+    suspend fun getAllPayments(period: TransactionPeriod): List<PaymentData>
 
     class Default(
         private val wiseCoinSharedPreferences: WiseCoinSharedPreferences,
@@ -60,8 +61,8 @@ interface CacheSource {
             })
         }
 
-        override suspend fun getAllPayments(): List<PaymentData> {
-            return paymentDao.getAllPayments().map {
+        override suspend fun getAllPayments(period: TransactionPeriod): List<PaymentData> {
+            return paymentDao.getPaymentsWithinPeriod(period.from(), period.to()).map {
                 PaymentData(it.id, it.time, it.description, it.category, it.amount, it.image)
             }
         }

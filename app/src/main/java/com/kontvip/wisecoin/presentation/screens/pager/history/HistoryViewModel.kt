@@ -3,6 +3,7 @@ package com.kontvip.wisecoin.presentation.screens.pager.history
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kontvip.wisecoin.core.DispatcherList
+import com.kontvip.wisecoin.domain.TransactionPeriod
 import com.kontvip.wisecoin.domain.TransactionsInteractor
 import com.kontvip.wisecoin.domain.model.PaymentDomain
 import com.kontvip.wisecoin.presentation.model.PaymentUi
@@ -20,7 +21,7 @@ class HistoryViewModel @Inject constructor(
 
     fun fetchMonobankPayments(onSuccess: suspend (List<PaymentUi>) -> Unit) {
         viewModelScope.launch(dispatcherList.io()) {
-            val payments = transactionsInteractor.fetchCachedPayments(domainToUiPaymentMapper)
+            val payments = transactionsInteractor.fetchCachedPayments(TransactionPeriod.Year, domainToUiPaymentMapper)
             withContext(dispatcherList.ui()) {
                 onSuccess.invoke(payments)
             }

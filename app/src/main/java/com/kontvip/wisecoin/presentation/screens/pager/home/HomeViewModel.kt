@@ -3,6 +3,7 @@ package com.kontvip.wisecoin.presentation.screens.pager.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kontvip.wisecoin.core.DispatcherList
+import com.kontvip.wisecoin.domain.TransactionPeriod
 import com.kontvip.wisecoin.domain.TransactionsInteractor
 import com.kontvip.wisecoin.domain.model.PaymentDomain
 import com.kontvip.wisecoin.presentation.model.CategoryItem
@@ -19,9 +20,9 @@ class HomeViewModel @Inject constructor(
     private val paymentMapper: PaymentDomain.Mapper<PaymentUi>
 ) : ViewModel() {
 
-    fun fetchCategories(onFetched: (List<CategoryItem>) -> Unit) {
+    fun fetchCategories(period: TransactionPeriod, onFetched: (List<CategoryItem>) -> Unit) {
         viewModelScope.launch(dispatcherList.io()) {
-            val payments = transactionsInteractor.fetchCachedPayments(paymentMapper)
+            val payments = transactionsInteractor.fetchCachedPayments(period, paymentMapper)
             val categories = payments.groupBy { it.getCategory() }.map {
                 CategoryItem(it.key, it.value)
             }
@@ -31,14 +32,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun fetchExpenses(onFetched: (List<CategoryItem>) -> Unit) {
-        fetchCategories {
+    fun fetchExpenses(period: TransactionPeriod, onFetched: (List<CategoryItem>) -> Unit) {
+        fetchCategories(period) {
             onFetched.invoke(it.filter { it.getTotalCost() < 0 })
         }
     }
 
-    fun fetchIncomes(onFetched: (List<CategoryItem>) -> Unit) {
-        fetchCategories {
+    fun fetchIncomes(period: TransactionPeriod, onFetched: (List<CategoryItem>) -> Unit) {
+        fetchCategories(period) {
             onFetched.invoke(it.filter { it.getTotalCost() >= 0 })
         }
     }
