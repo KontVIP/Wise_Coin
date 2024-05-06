@@ -34,6 +34,7 @@ class AuthViewModel @Inject constructor(
                 transactionsInteractor.fetchPayments(
                     domainToUiPaymentMapper,
                     onSuccess = {
+                        credentialsInteractor.saveIsSkippedMonobankAuth(false)
                         navigationCommunication.postValue(Destination.PagerScreen)
                     },
                     onError = {

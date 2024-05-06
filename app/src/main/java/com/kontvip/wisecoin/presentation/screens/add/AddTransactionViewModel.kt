@@ -1,4 +1,4 @@
-package com.kontvip.wisecoin.presentation.screens.transaction
+package com.kontvip.wisecoin.presentation.screens.add
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel

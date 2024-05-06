@@ -6,7 +6,8 @@ import com.kontvip.wisecoin.presentation.screens.auth.AuthAutoExtractionFragment
 import com.kontvip.wisecoin.presentation.screens.auth.AuthManuallyFragment
 import com.kontvip.wisecoin.presentation.screens.pager.PagerFragment
 import com.kontvip.wisecoin.presentation.screens.splash.AuthPreloadingFragment
-import com.kontvip.wisecoin.presentation.screens.transaction.AddTransactionFragment
+import com.kontvip.wisecoin.presentation.screens.add.AddTransactionFragment
+import com.kontvip.wisecoin.presentation.screens.welcome.WelcomeFragment
 
 abstract class Destination(private val canNavigateBack: Boolean) {
 
@@ -20,6 +21,10 @@ abstract class Destination(private val canNavigateBack: Boolean) {
     }
 
     protected abstract fun fragment(): Fragment
+
+    object WelcomeScreen : Destination(canNavigateBack = true) {
+        override fun fragment(): Fragment = WelcomeFragment()
+    }
 
     object AuthPreLoadingScreen : Destination(canNavigateBack = false) {
         override fun fragment(): Fragment = AuthPreloadingFragment()

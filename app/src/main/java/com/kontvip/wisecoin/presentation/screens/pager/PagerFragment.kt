@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.google.android.material.navigation.NavigationBarView
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.FragmentPagerBinding
@@ -16,8 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PagerFragment : BaseFragment<FragmentPagerBinding>(), NavigationBarView.OnItemSelectedListener {
-
-    private val viewModel by viewModels<PagerViewModel>()
 
     private var isFragmentAdded = false
 

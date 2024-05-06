@@ -27,12 +27,16 @@ class MainViewModel @Inject constructor(
     fun init(isFirstRun: Boolean) {
         if (isFirstRun) {
             viewModelScope.launch(dispatcherList.io()) {
-                if (credentialsInteractor.isSavedTokenValid()) {
-                    transactionsInteractor.updatePaymentsFromCloud {
+                if (credentialsInteractor.shouldAuthorize()) {
+                    navigationCommunication.postValue(Destination.WelcomeScreen)
+                } else {
+                    if (credentialsInteractor.isMonoTokenValid()) {
+                        transactionsInteractor.updatePaymentsFromCloud {
+                            navigationCommunication.postValue(Destination.PagerScreen)
+                        }
+                    } else {
                         navigationCommunication.postValue(Destination.PagerScreen)
                     }
-                } else {
-                    navigationCommunication.postValue(Destination.AuthAutoExtractionScreen)
                 }
             }
         }

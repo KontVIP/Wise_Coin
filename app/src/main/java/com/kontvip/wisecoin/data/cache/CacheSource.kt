@@ -2,7 +2,7 @@ package com.kontvip.wisecoin.data.cache
 
 import com.kontvip.wisecoin.data.cache.database.PaymentDao
 import com.kontvip.wisecoin.data.cache.database.PaymentEntity
-import com.kontvip.wisecoin.data.model.ClientInfo
+import com.kontvip.wisecoin.domain.model.ClientInfo
 import com.kontvip.wisecoin.data.model.PaymentData
 import com.kontvip.wisecoin.domain.TransactionPeriod
 
@@ -13,6 +13,8 @@ interface CacheSource {
     fun saveClientInfo(clientInfo: ClientInfo)
     fun fetchClientInfo(): ClientInfo
     fun clearClientInfo()
+    fun saveIsSkippedMonobankAuth(isSkipped: Boolean)
+    fun wasMonobankAuthSkipped(): Boolean
     suspend fun getAllPayments(period: TransactionPeriod): List<PaymentData>
     suspend fun savePayments(payments: List<PaymentData>)
     suspend fun savePayment(payment: PaymentData)
@@ -48,6 +50,14 @@ interface CacheSource {
         override fun clearClientInfo() {
             wiseCoinSharedPreferences.saveClientId("")
             wiseCoinSharedPreferences.saveClientName("")
+        }
+
+        override fun saveIsSkippedMonobankAuth(isSkipped: Boolean) {
+            wiseCoinSharedPreferences.saveIsSkippedMonobankAuth(isSkipped)
+        }
+
+        override fun wasMonobankAuthSkipped(): Boolean {
+            return wiseCoinSharedPreferences.getIsMonobankAuthSkipped()
         }
 
         override suspend fun savePayments(payments: List<PaymentData>) {

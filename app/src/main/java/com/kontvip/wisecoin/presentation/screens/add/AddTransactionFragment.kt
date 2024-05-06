@@ -1,4 +1,4 @@
-package com.kontvip.wisecoin.presentation.screens.transaction
+package com.kontvip.wisecoin.presentation.screens.add
 
 import android.app.Activity
 import android.content.Context

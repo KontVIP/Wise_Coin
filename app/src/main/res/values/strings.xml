@@ -17,7 +17,12 @@
     <string name="add_category">Add category</string>
     <string name="percentage">%s\%%</string>
     <string name="sign_out">Sign out</string>
-    <string name="gryvna">$</string>
+    <string name="hryvna_sign">₴</string>
+    <string name="dollar_sign">$</string>
+    <string name="euro_sign">€</string>
+    <string name="hryvna">Hryvnia (₴)</string>
+    <string name="euro">Euro (€)</string>
+    <string name="dollar">Dollar ($)</string>
     <string name="smaller_period">Smaller period</string>
     <string name="bigger_period">Bigger period.</string>
     <string name="week">Week</string>
@@ -36,4 +41,17 @@
     <string name="error_enter_category">Enter a valid category!</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
+    <string name="welcome_to_wise_coin">Welcome to\nWise Coin!</string>
+    <string name="skip">Skip</string>
+    <string name="continue_with_monobank">Continue with Monobank</string>
+    <string name="current_currency_is">Current currency is:</string>
+    <string name="change_token">Change token</string>
+    <string name="monobank_token_is_active">Monobank token is active</string>
+    <string name="monobank_token_is_not_active">Monobank token is not active</string>
+    <string name="change_currency">Change currency</string>
+    <string name="change">Change</string>
+    <string name="remove">Remove</string>
+    <string name="select_currency">Select Currency</string>
+    <string name="add_token">Add token</string>
+    <string name="select">Select</string>
 </resources>

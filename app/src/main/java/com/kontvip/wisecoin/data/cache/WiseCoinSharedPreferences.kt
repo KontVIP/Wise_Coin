@@ -1,17 +1,18 @@
 package com.kontvip.wisecoin.data.cache
 
 import android.content.Context
-import android.content.SharedPreferences
-import java.net.IDN
 
 interface WiseCoinSharedPreferences {
 
     fun getMonobankToken(): String
     fun getClientId(): String
     fun getClientName(): String
+    fun getIsMonobankAuthSkipped(): Boolean
+    fun saveIsSkippedMonobankAuth(isSkipped: Boolean)
     fun saveMonobankToken(token: String)
     fun saveClientId(id: String)
     fun saveClientName(name: String)
+
 
     class Default(context: Context) : WiseCoinSharedPreferences {
 
@@ -20,6 +21,7 @@ interface WiseCoinSharedPreferences {
             private const val TOKEN_KEY = "TOKEN_KEY"
             private const val CLIENT_ID_KEY = "CLIENT_ID_KEY"
             private const val CLIENT_NAME_KEY = "CLIENT_NAME_KEY"
+            private const val IS_MONOBANK_AUTH_SKIPPED_KEY = "IS_MONOBANK_AUTH_SKIPPED_KEY"
         }
 
         private val sharedPrefs =
@@ -35,6 +37,14 @@ interface WiseCoinSharedPreferences {
 
         override fun getClientName(): String {
             return sharedPrefs.getString(CLIENT_NAME_KEY, "") ?: ""
+        }
+
+        override fun getIsMonobankAuthSkipped(): Boolean {
+            return sharedPrefs.getBoolean(IS_MONOBANK_AUTH_SKIPPED_KEY, false)
+        }
+
+        override fun saveIsSkippedMonobankAuth(isSkipped: Boolean) {
+            sharedPrefs.edit().putBoolean(IS_MONOBANK_AUTH_SKIPPED_KEY, isSkipped).apply()
         }
 
         override fun saveMonobankToken(token: String) {

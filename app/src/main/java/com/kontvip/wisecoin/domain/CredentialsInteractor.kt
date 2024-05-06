@@ -1,9 +1,14 @@
 package com.kontvip.wisecoin.domain
 
+import com.kontvip.wisecoin.domain.model.ClientInfo
+
 interface CredentialsInteractor {
     suspend fun isSavedTokenValidOnServer(): Boolean
-    fun isSavedTokenValid(): Boolean
+    fun shouldAuthorize(): Boolean
+    fun isMonoTokenValid(): Boolean
+    fun saveIsSkippedMonobankAuth(isSkipped: Boolean)
     fun saveMonobankToken(token: String)
+    suspend fun fetchCachedClientInfo(): ClientInfo
     fun clearMonobankToken()
 
     class Default(
@@ -15,13 +20,26 @@ interface CredentialsInteractor {
             return token.isAcceptableForServer(tokenServerValidator)
         }
 
-        override fun isSavedTokenValid(): Boolean {
+        override fun shouldAuthorize(): Boolean {
+            val token = repository.getMonobankToken()
+            return !repository.wasMonobankAuthSkipped() && !token.isValid()
+        }
+
+        override fun isMonoTokenValid(): Boolean {
             val token = repository.getMonobankToken()
             return token.isValid()
         }
 
+        override fun saveIsSkippedMonobankAuth(isSkipped: Boolean) {
+            repository.saveIsSkippedMonobankAuth(isSkipped)
+        }
+
         override fun saveMonobankToken(token: String) {
             repository.saveMonobankToken(token)
+        }
+
+        override suspend fun fetchCachedClientInfo(): ClientInfo {
+            return repository.fetchCachedClientInfo()
         }
 
         override fun clearMonobankToken() {
