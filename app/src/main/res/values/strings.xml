@@ -13,7 +13,8 @@
     <string name="home">Home</string>
     <string name="menu">Menu</string>
     <string name="expenses">Expenses</string>
-    <string name="income">Incomes</string>
+    <string name="incomes">Incomes</string>
+    <string name="income">Income</string>
     <string name="add_category">Add category</string>
     <string name="percentage">%s\%%</string>
     <string name="sign_out">Sign out</string>
@@ -54,4 +55,5 @@
     <string name="select_currency">Select Currency</string>
     <string name="add_token">Add token</string>
     <string name="select">Select</string>
+    <string name="expense">Expense</string>
 </resources>

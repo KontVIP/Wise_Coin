@@ -58,10 +58,11 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/minusButton"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:background="@drawable/transaction_type_selected_bg"
-                android:text="@string/minus" />
+                android:text="@string/expense"
+                android:textAllCaps="false" />
 
             <Space
                 android:layout_width="40dp"
@@ -69,10 +70,11 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plusButton"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:background="@drawable/black_border"
-                android:text="@string/plus" />
+                android:text="@string/income"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 

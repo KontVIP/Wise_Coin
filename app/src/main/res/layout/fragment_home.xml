@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/black_border"
             android:gravity="center"
-            android:text="@string/income"
+            android:text="@string/incomes"
             android:textSize="20sp" />
 
         <View
