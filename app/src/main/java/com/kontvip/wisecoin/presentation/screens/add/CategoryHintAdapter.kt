@@ -20,7 +20,7 @@ class CategoryHintAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun filter(keyWord: String) {
-        itemsToDisplay = allItems.filter { it.contains(keyWord) }
+        itemsToDisplay = allItems.filter { it.lowercase().contains(keyWord.lowercase()) }
         notifyDataSetChanged()
     }
 
