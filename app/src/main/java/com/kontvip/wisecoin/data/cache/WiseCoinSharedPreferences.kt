@@ -1,6 +1,9 @@
 package com.kontvip.wisecoin.data.cache
 
 import android.content.Context
+import com.google.gson.Gson
+import com.kontvip.wisecoin.R
+import com.kontvip.wisecoin.domain.model.Currency
 
 interface WiseCoinSharedPreferences {
 
@@ -12,9 +15,10 @@ interface WiseCoinSharedPreferences {
     fun saveMonobankToken(token: String)
     fun saveClientId(id: String)
     fun saveClientName(name: String)
+    fun saveUserCurrency(currency: Currency)
+    fun getUserCurrency(): Currency
 
-
-    class Default(context: Context) : WiseCoinSharedPreferences {
+    class Default(context: Context, private val gson: Gson) : WiseCoinSharedPreferences {
 
         companion object {
             private const val WISE_COIN_SHARED_PREFERENCES = "WISE_COIN_SHARED_PREFERENCES"
@@ -22,6 +26,7 @@ interface WiseCoinSharedPreferences {
             private const val CLIENT_ID_KEY = "CLIENT_ID_KEY"
             private const val CLIENT_NAME_KEY = "CLIENT_NAME_KEY"
             private const val IS_MONOBANK_AUTH_SKIPPED_KEY = "IS_MONOBANK_AUTH_SKIPPED_KEY"
+            private const val USER_CURRENCY_KEY = "USER_CURRENCY_KEY"
         }
 
         private val sharedPrefs =
@@ -57,6 +62,16 @@ interface WiseCoinSharedPreferences {
 
         override fun saveClientName(name: String) {
             sharedPrefs.edit().putString(CLIENT_NAME_KEY, name).apply()
+        }
+
+        override fun saveUserCurrency(currency: Currency) {
+            sharedPrefs.edit().putString(USER_CURRENCY_KEY, gson.toJson(currency)).apply()
+        }
+
+        override fun getUserCurrency(): Currency {
+            return sharedPrefs.getString(USER_CURRENCY_KEY, null)?.let {
+                gson.fromJson(it, Currency::class.java)
+            } ?: Currency(R.string.hryvna, R.string.hryvna_sign)
         }
     }
 

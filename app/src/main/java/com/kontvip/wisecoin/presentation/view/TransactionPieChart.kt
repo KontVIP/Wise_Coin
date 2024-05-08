@@ -11,6 +11,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.domain.PercentageColorCreator
+import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.presentation.model.CategoryItem
 import com.kontvip.wisecoin.presentation.model.ReceiveName
 import java.util.ArrayList
@@ -21,6 +22,11 @@ class TransactionPieChart @JvmOverloads constructor(
 ) : PieChart(context, attrs, defStyle) {
 
     private val colorCreator = PercentageColorCreator.Default()
+    private var currency = Currency(R.string.hryvna, R.string.hryvna_sign)
+
+    fun setCurrency(currency: Currency) {
+        this.currency = currency
+    }
 
     fun addCategoriesChartData(categories: List<CategoryItem>, isExpenses: Boolean) {
         val total = categories.sumOf { if (isExpenses) it.getTotalExpenses() else it.getTotalIncomes() }.toFloat()
@@ -52,7 +58,11 @@ class TransactionPieChart @JvmOverloads constructor(
         setDrawEntryLabels(false)
         data = PieData(dataSet)
         setDrawCenterText(true)
-        centerText = (total / 100).toString() + "$"
+        currency.display(object : Currency.DisplayCurrency {
+            override fun displayCurrency(currencyRes: Int, signRes: Int) {
+                centerText = (total / 100).toString() + context.getString(signRes)
+            }
+        })
         val green = ResourcesCompat.getColor(resources, R.color.green,null)
         setCenterTextColor(if (isExpenses) Color.RED else green)
         invalidate()

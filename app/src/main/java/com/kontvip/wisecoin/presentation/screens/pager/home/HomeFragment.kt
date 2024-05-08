@@ -24,7 +24,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = CategoryAdapter(emptyList(), isExpensesSelected)
+        val currency = viewModel.getUserCurrency()
+        binding.pieChart.setCurrency(currency)
+        val adapter = CategoryAdapter(emptyList(), isExpensesSelected, currency)
         binding.categoriesRecyclerView.adapter = adapter
         binding.categoriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.categoriesRecyclerView.addItemDecoration(
@@ -71,12 +73,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
 
         binding.addTransactionFab.onClick {
-            viewModel.navigateToAddTransactiontScreen()
+            viewModel.navigateToAddTransactionScreen()
         }
     }
 
     private fun fetchExpenses(adapter: CategoryAdapter) {
         viewModel.fetchExpenses(transactionPeriod) {
+            viewModel
             binding.pieChart.addCategoriesChartData(it, isExpensesSelected)
             adapter.changeItems(it, isExpensesSelected)
         }

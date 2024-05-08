@@ -9,6 +9,7 @@ import com.kontvip.wisecoin.domain.MonobankToken
 import com.kontvip.wisecoin.domain.Repository
 import com.kontvip.wisecoin.domain.TransactionPeriod
 import com.kontvip.wisecoin.domain.core.ServerResult
+import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.domain.model.PaymentDomain
 import kotlinx.coroutines.delay
 import java.util.concurrent.TimeUnit
@@ -75,6 +76,14 @@ class DefaultRepository(
                 return PaymentData(id, time, description, category, amount, image)
             }
         }))
+    }
+
+    override fun saveUserCurrency(currency: Currency) {
+        cacheSource.saveUserCurrency(currency)
+    }
+
+    override fun getUserCurrency(): Currency {
+        return cacheSource.getUserCurrency()
     }
 
     override suspend fun fetchPayments(

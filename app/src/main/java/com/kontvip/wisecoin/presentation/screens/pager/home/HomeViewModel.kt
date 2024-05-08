@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.kontvip.wisecoin.core.DispatcherList
 import com.kontvip.wisecoin.domain.TransactionPeriod
 import com.kontvip.wisecoin.domain.TransactionsInteractor
+import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.domain.model.PaymentDomain
 import com.kontvip.wisecoin.presentation.core.NavigationCommunication
 import com.kontvip.wisecoin.presentation.model.CategoryItem
@@ -47,8 +48,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun navigateToAddTransactiontScreen() {
+    fun navigateToAddTransactionScreen() {
         navigationCommunication.postValue(Destination.AddTransactionScreen)
+    }
+
+    fun getUserCurrency(): Currency {
+        return transactionsInteractor.getUserCurrency()
     }
 
 }

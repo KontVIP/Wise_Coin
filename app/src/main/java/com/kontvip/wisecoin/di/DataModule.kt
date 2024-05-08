@@ -40,7 +40,10 @@ class DataModule {
         mccToCategoryMapper: MccToCategoryMapper
     ): Gson = GsonBuilder()
         .setLenient()
-        .registerTypeAdapter(Array<PaymentData>::class.java, PaymentsDeserializer(mccToCategoryMapper))
+        .registerTypeAdapter(
+            Array<PaymentData>::class.java,
+            PaymentsDeserializer(mccToCategoryMapper)
+        )
         .create()
 
     @Provides
@@ -99,10 +102,13 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideWiseCoinSharedPreferences(@ApplicationContext context: Context): WiseCoinSharedPreferences =
-        WiseCoinSharedPreferences.Default(
-            context = context
-        )
+    fun provideWiseCoinSharedPreferences(
+        @ApplicationContext context: Context,
+        gson: Gson
+    ): WiseCoinSharedPreferences = WiseCoinSharedPreferences.Default(
+        context = context,
+        gson = gson
+    )
 
     @Provides
     @Singleton

@@ -1,5 +1,6 @@
 package com.kontvip.wisecoin.domain
 
+import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.domain.model.PaymentDomain
 
 interface TransactionsInteractor {
@@ -15,6 +16,8 @@ interface TransactionsInteractor {
         paymentMapper: PaymentDomain.Mapper<T>,
     ): List<T>
     suspend fun savePayment(payment: PaymentDomain)
+    fun saveUserCurrency(currency: Currency)
+    fun getUserCurrency(): Currency
 
     class Default(
         private val repository: Repository
@@ -52,6 +55,14 @@ interface TransactionsInteractor {
 
         override suspend fun savePayment(payment: PaymentDomain) {
             repository.savePayment(payment)
+        }
+
+        override fun saveUserCurrency(currency: Currency) {
+            repository.saveUserCurrency(currency)
+        }
+
+        override fun getUserCurrency(): Currency {
+            return repository.getUserCurrency()
         }
     }
 

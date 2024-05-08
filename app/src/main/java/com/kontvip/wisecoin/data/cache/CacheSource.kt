@@ -5,6 +5,7 @@ import com.kontvip.wisecoin.data.cache.database.PaymentEntity
 import com.kontvip.wisecoin.domain.model.ClientInfo
 import com.kontvip.wisecoin.data.model.PaymentData
 import com.kontvip.wisecoin.domain.TransactionPeriod
+import com.kontvip.wisecoin.domain.model.Currency
 
 interface CacheSource {
 
@@ -18,6 +19,8 @@ interface CacheSource {
     suspend fun getAllPayments(period: TransactionPeriod): List<PaymentData>
     suspend fun savePayments(payments: List<PaymentData>)
     suspend fun savePayment(payment: PaymentData)
+    fun saveUserCurrency(currency: Currency)
+    fun getUserCurrency(): Currency
 
     class Default(
         private val wiseCoinSharedPreferences: WiseCoinSharedPreferences,
@@ -80,6 +83,14 @@ interface CacheSource {
 
         override suspend fun savePayment(payment: PaymentData) {
             savePayments(listOf(payment))
+        }
+
+        override fun saveUserCurrency(currency: Currency) {
+            wiseCoinSharedPreferences.saveUserCurrency(currency)
+        }
+
+        override fun getUserCurrency(): Currency {
+            return wiseCoinSharedPreferences.getUserCurrency()
         }
     }
 

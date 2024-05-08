@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.CategoryItemBinding
 import com.kontvip.wisecoin.domain.PercentageColorCreator
+import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.presentation.model.CategoryItem
 import java.text.DecimalFormat
+import kotlin.math.sign
 
 class CategoryAdapter(
     private var categories: List<CategoryItem>,
-    private var isExpenses: Boolean
+    private var isExpenses: Boolean,
+    private val currency: Currency
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
@@ -38,9 +41,10 @@ class CategoryAdapter(
 
     inner class ViewHolder(
         private val binding: CategoryItemBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root), Currency.DisplayCurrency {
 
         fun bind(category: CategoryItem) {
+            currency.display(this)
             val colorCreator = PercentageColorCreator.Default()
             category.display(object : CategoryItem.Display {
                 override fun displayCategoryName(name: String) {
@@ -73,6 +77,10 @@ class CategoryAdapter(
 
             val roundedPercentage = DecimalFormat("#.#").format(percentage.toFloat())
             binding.percentageTextView.text = binding.root.context.getString(R.string.percentage, roundedPercentage.toString())
+        }
+
+        override fun displayCurrency(currencyRes: Int, signRes: Int) {
+            binding.currencyTextView.setText(signRes)
         }
     }
 

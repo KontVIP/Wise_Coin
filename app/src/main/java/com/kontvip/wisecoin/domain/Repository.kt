@@ -2,6 +2,7 @@ package com.kontvip.wisecoin.domain
 
 import com.kontvip.wisecoin.domain.model.ClientInfo
 import com.kontvip.wisecoin.domain.core.ServerResult
+import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.domain.model.PaymentDomain
 
 interface Repository {
@@ -16,4 +17,6 @@ interface Repository {
     )
     suspend fun fetchCachedPayments(period: TransactionPeriod): List<PaymentDomain>
     suspend fun savePayment(payment: PaymentDomain)
+    fun saveUserCurrency(currency: Currency)
+    fun getUserCurrency(): Currency
 }

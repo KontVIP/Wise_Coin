@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.FragmentMenuBinding
 import com.kontvip.wisecoin.domain.model.ClientInfo
+import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.presentation.core.BaseFragment
 import com.kontvip.wisecoin.presentation.gone
 import com.kontvip.wisecoin.presentation.onClick
@@ -14,13 +15,14 @@ import com.kontvip.wisecoin.presentation.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MenuFragment : BaseFragment<FragmentMenuBinding>() {
+class MenuFragment : BaseFragment<FragmentMenuBinding>(), Currency.DisplayCurrency {
 
     private val viewModel by viewModels<MenuViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getUserCurrency().display(this)
         viewModel.fetchClientInfo {
             it.display(object : ClientInfo.Display {
                 override fun displayClientName(name: String) {
@@ -54,6 +56,7 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>() {
 
         binding.changeCurrency.onClick {
             CurrencySelectionDialog(requireContext()) {
+                it.display(this)
                 viewModel.saveCurrency(it)
             }.show()
         }
@@ -64,6 +67,10 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>() {
         binding.activeTokenImageView.setImageResource(R.drawable.ic_cross)
         binding.validTokenLayout.gone()
         binding.addTokenButton.visible()
+    }
+
+    override fun displayCurrency(currencyRes: Int, signRes: Int) {
+        binding.currencyTextView.setText(currencyRes)
     }
 
 }
