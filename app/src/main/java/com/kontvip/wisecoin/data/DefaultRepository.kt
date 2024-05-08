@@ -86,6 +86,10 @@ class DefaultRepository(
         return cacheSource.getUserCurrency()
     }
 
+    override fun deleteTransaction(id: String) {
+        cacheSource.deleteTransaction(id)
+    }
+
     override suspend fun fetchPayments(
         onSuccess: suspend (List<PaymentDomain>) -> Unit, onError: (Int) -> Unit
     ) {

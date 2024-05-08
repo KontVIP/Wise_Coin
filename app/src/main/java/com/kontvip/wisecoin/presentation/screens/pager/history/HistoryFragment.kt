@@ -10,7 +10,7 @@ import com.kontvip.wisecoin.presentation.core.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
+class HistoryFragment : BaseFragment<FragmentHistoryBinding>(), OnRemoveTransaction {
 
     private val viewModel by viewModels<HistoryViewModel>()
 
@@ -18,7 +18,7 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.fetchMonobankPayments {
-            val adapter = HistoryAdapter(it)
+            val adapter = HistoryAdapter(it.toMutableList(), this)
             binding.historyRecyclerView.adapter = adapter
         }
 
@@ -28,4 +28,12 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
+    override fun onRemoveTransaction(id: String) {
+        viewModel.deleteTransaction(id)
+    }
+
+}
+
+interface OnRemoveTransaction {
+    fun onRemoveTransaction(id: String)
 }

@@ -21,6 +21,7 @@ interface CacheSource {
     suspend fun savePayment(payment: PaymentData)
     fun saveUserCurrency(currency: Currency)
     fun getUserCurrency(): Currency
+    fun deleteTransaction(id: String)
 
     class Default(
         private val wiseCoinSharedPreferences: WiseCoinSharedPreferences,
@@ -91,6 +92,10 @@ interface CacheSource {
 
         override fun getUserCurrency(): Currency {
             return wiseCoinSharedPreferences.getUserCurrency()
+        }
+
+        override fun deleteTransaction(id: String) {
+            paymentDao.deleteTransaction(id)
         }
     }
 

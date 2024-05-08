@@ -28,4 +28,10 @@ class HistoryViewModel @Inject constructor(
         }
     }
 
+    fun deleteTransaction(id: String) {
+        viewModelScope.launch(dispatcherList.io()) {
+            transactionsInteractor.deleteTransaction(id)
+        }
+    }
+
 }

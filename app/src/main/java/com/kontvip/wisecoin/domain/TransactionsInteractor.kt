@@ -18,6 +18,7 @@ interface TransactionsInteractor {
     suspend fun savePayment(payment: PaymentDomain)
     fun saveUserCurrency(currency: Currency)
     fun getUserCurrency(): Currency
+    fun deleteTransaction(id: String)
 
     class Default(
         private val repository: Repository
@@ -63,6 +64,10 @@ interface TransactionsInteractor {
 
         override fun getUserCurrency(): Currency {
             return repository.getUserCurrency()
+        }
+
+        override fun deleteTransaction(id: String) {
+            repository.deleteTransaction(id)
         }
     }
 

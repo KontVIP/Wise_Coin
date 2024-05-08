@@ -1,5 +1,6 @@
 package com.kontvip.wisecoin.presentation.model
 
+import com.kontvip.wisecoin.data.core.IdRequest
 import com.kontvip.wisecoin.domain.core.PaymentUiState
 import com.kontvip.wisecoin.domain.display.PaymentDisplay
 
@@ -14,6 +15,10 @@ class PaymentUi(
 
     override fun isInCategory(category: String): Boolean {
         return this.category == category
+    }
+
+    override fun onIdRequested(idRequest: IdRequest) {
+        idRequest.onIdProvided(id)
     }
 
     override fun display(uiDisplay: PaymentDisplay) {

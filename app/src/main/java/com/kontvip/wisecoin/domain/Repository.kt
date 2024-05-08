@@ -19,4 +19,5 @@ interface Repository {
     suspend fun savePayment(payment: PaymentDomain)
     fun saveUserCurrency(currency: Currency)
     fun getUserCurrency(): Currency
+    fun deleteTransaction(id: String)
 }
