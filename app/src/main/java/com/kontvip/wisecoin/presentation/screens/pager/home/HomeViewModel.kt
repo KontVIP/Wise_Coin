@@ -52,6 +52,10 @@ class HomeViewModel @Inject constructor(
         navigationCommunication.postValue(Destination.AddTransactionScreen)
     }
 
+    fun navigateToCategoryScreen(categoryItem: CategoryItem) {
+        navigationCommunication.postValue(Destination.CategoryScreen(categoryItem))
+    }
+
     fun getUserCurrency(): Currency {
         return transactionsInteractor.getUserCurrency()
     }

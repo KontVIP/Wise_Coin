@@ -40,6 +40,10 @@ data class CategoryItem(
         receiveName.onNameReceived(name)
     }
 
+    fun displayPayments(display: (List<PaymentUi>) -> Unit) {
+        display.invoke(payments)
+    }
+
     interface Display : UiState.UiDisplay {
         fun displayCategoryName(name: String)
         fun displayCost(cost: String)

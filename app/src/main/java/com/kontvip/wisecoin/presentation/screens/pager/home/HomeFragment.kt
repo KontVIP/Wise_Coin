@@ -10,11 +10,12 @@ import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.FragmentHomeBinding
 import com.kontvip.wisecoin.domain.TransactionPeriod
 import com.kontvip.wisecoin.presentation.core.BaseFragment
+import com.kontvip.wisecoin.presentation.model.CategoryItem
 import com.kontvip.wisecoin.presentation.onClick
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnCategoryClick {
 
     private val viewModel by viewModels<HomeViewModel>()
 
@@ -26,7 +27,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         val currency = viewModel.getUserCurrency()
         binding.pieChart.setCurrency(currency)
-        val adapter = CategoryAdapter(emptyList(), isExpensesSelected, currency)
+        val adapter = CategoryAdapter(emptyList(), isExpensesSelected, currency, this)
         binding.categoriesRecyclerView.adapter = adapter
         binding.categoriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.categoriesRecyclerView.addItemDecoration(
@@ -92,4 +93,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
+    override fun onClick(categoryItem: CategoryItem) {
+        viewModel.navigateToCategoryScreen(categoryItem)
+    }
+
+}
+
+interface OnCategoryClick {
+    fun onClick(categoryItem: CategoryItem)
 }

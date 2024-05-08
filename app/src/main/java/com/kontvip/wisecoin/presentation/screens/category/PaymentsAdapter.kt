@@ -1,4 +1,4 @@
-package com.kontvip.wisecoin.presentation.screens.pager.history
+package com.kontvip.wisecoin.presentation.screens.category
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,23 +8,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.data.core.IdRequest
-import com.kontvip.wisecoin.databinding.HistoryItemBinding
+import com.kontvip.wisecoin.databinding.PaymentItemBinding
 import com.kontvip.wisecoin.domain.core.PaymentUiState
 import com.kontvip.wisecoin.domain.display.PaymentDisplay
-import com.kontvip.wisecoin.presentation.core.OnRemoveTransaction
 import com.kontvip.wisecoin.presentation.model.PaymentUi
+import com.kontvip.wisecoin.presentation.core.OnRemoveTransaction
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class HistoryAdapter(
+class PaymentsAdapter(
     private val payments: MutableList<PaymentUi>,
     private val onRemoveTransaction: OnRemoveTransaction
-) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<PaymentsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = HistoryItemBinding.inflate(inflater, parent, false)
+        val binding = PaymentItemBinding.inflate(inflater, parent, false)
         return ViewHolder(binding, onRemoveTransaction)
     }
 
@@ -35,7 +35,7 @@ class HistoryAdapter(
     override fun getItemCount(): Int = payments.size
 
     inner class ViewHolder(
-        private val binding: HistoryItemBinding,
+        private val binding: PaymentItemBinding,
         private val onRemoveTransaction: OnRemoveTransaction
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -51,9 +51,7 @@ class HistoryAdapter(
                     binding.descriptionTextView.text = description
                 }
 
-                override fun displayCategory(category: String) {
-                    binding.categoryNameTextView.text = category
-                }
+                override fun displayCategory(category: String) = Unit
 
                 override fun displayAmount(amount: Double) {
                     binding.costTextView.text = (amount / 100).toString()

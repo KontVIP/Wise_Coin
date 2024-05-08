@@ -11,13 +11,14 @@ import com.kontvip.wisecoin.databinding.CategoryItemBinding
 import com.kontvip.wisecoin.domain.PercentageColorCreator
 import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.presentation.model.CategoryItem
+import com.kontvip.wisecoin.presentation.onClick
 import java.text.DecimalFormat
-import kotlin.math.sign
 
 class CategoryAdapter(
     private var categories: List<CategoryItem>,
     private var isExpenses: Boolean,
-    private val currency: Currency
+    private val currency: Currency,
+    private val onCategoryClick: OnCategoryClick
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
@@ -30,7 +31,7 @@ class CategoryAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = CategoryItemBinding.inflate(inflater, parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, onCategoryClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,7 +41,8 @@ class CategoryAdapter(
     override fun getItemCount(): Int = categories.size
 
     inner class ViewHolder(
-        private val binding: CategoryItemBinding
+        private val binding: CategoryItemBinding,
+        private val onCategoryClick: OnCategoryClick
     ) : RecyclerView.ViewHolder(binding.root), Currency.DisplayCurrency {
 
         fun bind(category: CategoryItem) {
@@ -77,6 +79,9 @@ class CategoryAdapter(
 
             val roundedPercentage = DecimalFormat("#.#").format(percentage.toFloat())
             binding.percentageTextView.text = binding.root.context.getString(R.string.percentage, roundedPercentage.toString())
+            binding.root.onClick {
+                onCategoryClick.onClick(category)
+            }
         }
 
         override fun displayCurrency(currencyRes: Int, signRes: Int) {

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kontvip.wisecoin.databinding.FragmentHistoryBinding
 import com.kontvip.wisecoin.presentation.core.BaseFragment
+import com.kontvip.wisecoin.presentation.core.OnRemoveTransaction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,8 +33,4 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(), OnRemoveTransact
         viewModel.deleteTransaction(id)
     }
 
-}
-
-interface OnRemoveTransaction {
-    fun onRemoveTransaction(id: String)
 }

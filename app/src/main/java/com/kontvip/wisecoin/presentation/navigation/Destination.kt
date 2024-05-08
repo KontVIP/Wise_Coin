@@ -2,11 +2,13 @@ package com.kontvip.wisecoin.presentation.navigation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.kontvip.wisecoin.presentation.model.CategoryItem
 import com.kontvip.wisecoin.presentation.screens.auth.AuthAutoExtractionFragment
 import com.kontvip.wisecoin.presentation.screens.auth.AuthManuallyFragment
 import com.kontvip.wisecoin.presentation.screens.pager.PagerFragment
 import com.kontvip.wisecoin.presentation.screens.splash.AuthPreloadingFragment
 import com.kontvip.wisecoin.presentation.screens.add.AddTransactionFragment
+import com.kontvip.wisecoin.presentation.screens.category.CategoryFragment
 import com.kontvip.wisecoin.presentation.screens.welcome.WelcomeFragment
 
 abstract class Destination(private val canNavigateBack: Boolean) {
@@ -14,7 +16,7 @@ abstract class Destination(private val canNavigateBack: Boolean) {
     open fun addTransaction(transaction: FragmentTransaction, container: Int): FragmentTransaction {
         return if (canNavigateBack) {
             val fragment = fragment()
-            transaction.addToBackStack(fragment.tag).add(container, fragment)
+            transaction.addToBackStack(fragment.tag).replace(container, fragment)
         } else {
             transaction.replace(container, fragment())
         }
@@ -44,5 +46,9 @@ abstract class Destination(private val canNavigateBack: Boolean) {
 
     object AddTransactionScreen : Destination(canNavigateBack = true) {
         override fun fragment(): Fragment = AddTransactionFragment()
+    }
+
+    class CategoryScreen(private val categoryItem: CategoryItem) : Destination(canNavigateBack = true) {
+        override fun fragment(): Fragment = CategoryFragment().apply { addCategoryItem(categoryItem) }
     }
 }

@@ -10,7 +10,7 @@ data class Currency(
 ) : UiState<Currency.DisplayCurrency>, Serializable {
 
     override fun display(uiDisplay: DisplayCurrency) {
-        uiDisplay.displayCurrency(currencyRes, signRes)
+        uiDisplay.displayCurrency(currencyRes = currencyRes, signRes = signRes)
     }
 
     interface DisplayCurrency : UiState.UiDisplay {
