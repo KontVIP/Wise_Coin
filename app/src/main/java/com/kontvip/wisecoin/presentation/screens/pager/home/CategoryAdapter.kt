@@ -11,7 +11,7 @@ import com.kontvip.wisecoin.databinding.CategoryItemBinding
 import com.kontvip.wisecoin.domain.PercentageColorCreator
 import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.presentation.model.CategoryItem
-import com.kontvip.wisecoin.presentation.onClick
+import com.kontvip.wisecoin.presentation.core.onClick
 import java.text.DecimalFormat
 
 class CategoryAdapter(

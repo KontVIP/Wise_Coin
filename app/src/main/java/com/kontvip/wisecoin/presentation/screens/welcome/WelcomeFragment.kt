@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.kontvip.wisecoin.databinding.FragmentWelcomeBinding
 import com.kontvip.wisecoin.presentation.core.BaseFragment
-import com.kontvip.wisecoin.presentation.onClick
+import com.kontvip.wisecoin.presentation.core.onClick
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

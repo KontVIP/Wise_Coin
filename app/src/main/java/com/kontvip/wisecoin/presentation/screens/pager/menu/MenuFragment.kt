@@ -8,10 +8,10 @@ import com.kontvip.wisecoin.databinding.FragmentMenuBinding
 import com.kontvip.wisecoin.domain.model.ClientInfo
 import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.presentation.core.BaseFragment
-import com.kontvip.wisecoin.presentation.gone
-import com.kontvip.wisecoin.presentation.onClick
+import com.kontvip.wisecoin.presentation.core.gone
+import com.kontvip.wisecoin.presentation.core.onClick
 import com.kontvip.wisecoin.presentation.view.CurrencySelectionDialog
-import com.kontvip.wisecoin.presentation.visible
+import com.kontvip.wisecoin.presentation.core.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

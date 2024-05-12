@@ -1,4 +1,4 @@
-package com.kontvip.wisecoin.presentation
+package com.kontvip.wisecoin.presentation.core
 
 import android.view.View
 

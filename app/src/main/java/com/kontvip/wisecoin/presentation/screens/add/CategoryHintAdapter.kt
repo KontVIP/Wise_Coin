@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kontvip.wisecoin.databinding.CategoryHintBinding
-import com.kontvip.wisecoin.presentation.onClick
+import com.kontvip.wisecoin.presentation.core.onClick
 
 class CategoryHintAdapter(
     private var allItems: List<String>,

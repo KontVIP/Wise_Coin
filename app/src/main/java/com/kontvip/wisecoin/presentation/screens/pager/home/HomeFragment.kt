@@ -11,7 +11,7 @@ import com.kontvip.wisecoin.databinding.FragmentHomeBinding
 import com.kontvip.wisecoin.domain.model.TransactionPeriod
 import com.kontvip.wisecoin.presentation.core.BaseFragment
 import com.kontvip.wisecoin.presentation.model.CategoryItem
-import com.kontvip.wisecoin.presentation.onClick
+import com.kontvip.wisecoin.presentation.core.onClick
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
