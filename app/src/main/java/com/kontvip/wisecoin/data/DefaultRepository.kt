@@ -5,9 +5,9 @@ import com.kontvip.wisecoin.data.cloud.CloudSource
 import com.kontvip.wisecoin.domain.model.ClientInfo
 import com.kontvip.wisecoin.data.model.DefaultMonobankToken
 import com.kontvip.wisecoin.data.model.PaymentData
-import com.kontvip.wisecoin.domain.MonobankToken
-import com.kontvip.wisecoin.domain.Repository
-import com.kontvip.wisecoin.domain.TransactionPeriod
+import com.kontvip.wisecoin.domain.core.MonobankToken
+import com.kontvip.wisecoin.domain.core.Repository
+import com.kontvip.wisecoin.domain.model.TransactionPeriod
 import com.kontvip.wisecoin.domain.core.ServerResult
 import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.domain.model.PaymentDomain

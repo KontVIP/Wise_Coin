@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.data.ResourceProvider
 import com.kontvip.wisecoin.data.model.MCC
-import com.kontvip.wisecoin.domain.typeToken
+import com.kontvip.wisecoin.domain.core.typeToken
 import dagger.Lazy
 
 interface MccToCategoryMapper {

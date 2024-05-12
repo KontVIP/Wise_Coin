@@ -9,7 +9,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.kontvip.wisecoin.R
-import com.kontvip.wisecoin.domain.MonobankToken
+import com.kontvip.wisecoin.domain.core.MonobankToken
 import com.kontvip.wisecoin.presentation.core.delegates.FragmentLifecycleScope
 import com.kontvip.wisecoin.presentation.core.delegates.FragmentViewModels
 import kotlinx.coroutines.delay

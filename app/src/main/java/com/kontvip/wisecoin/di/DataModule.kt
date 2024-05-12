@@ -17,7 +17,7 @@ import com.kontvip.wisecoin.data.cloud.deserializer.PaymentsDeserializer
 import com.kontvip.wisecoin.data.cloud.mapper.ServerResultMapper
 import com.kontvip.wisecoin.data.mapper.MccToCategoryMapper
 import com.kontvip.wisecoin.data.model.PaymentData
-import com.kontvip.wisecoin.domain.Repository
+import com.kontvip.wisecoin.domain.core.Repository
 import com.kontvip.wisecoin.domain.TokenServerValidator
 import dagger.Lazy
 import dagger.Module

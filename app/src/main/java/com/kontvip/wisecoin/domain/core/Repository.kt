@@ -1,9 +1,11 @@
-package com.kontvip.wisecoin.domain
+package com.kontvip.wisecoin.domain.core
 
+import com.kontvip.wisecoin.domain.core.MonobankToken
 import com.kontvip.wisecoin.domain.model.ClientInfo
 import com.kontvip.wisecoin.domain.core.ServerResult
 import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.domain.model.PaymentDomain
+import com.kontvip.wisecoin.domain.model.TransactionPeriod
 
 interface Repository {
     fun saveMonobankToken(token: String)

@@ -4,7 +4,7 @@ import androidx.annotation.RawRes
 import androidx.lifecycle.ViewModel
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.data.model.DefaultMonobankToken
-import com.kontvip.wisecoin.domain.MonobankToken
+import com.kontvip.wisecoin.domain.core.MonobankToken
 import com.kontvip.wisecoin.presentation.core.JavaScriptFileReader
 import com.kontvip.wisecoin.presentation.core.SnackbarCommunication
 import com.kontvip.wisecoin.presentation.snackbar.WiseCoinSnackbar

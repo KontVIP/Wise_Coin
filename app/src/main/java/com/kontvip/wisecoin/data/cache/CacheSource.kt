@@ -4,7 +4,7 @@ import com.kontvip.wisecoin.data.cache.database.PaymentDao
 import com.kontvip.wisecoin.data.cache.database.PaymentEntity
 import com.kontvip.wisecoin.domain.model.ClientInfo
 import com.kontvip.wisecoin.data.model.PaymentData
-import com.kontvip.wisecoin.domain.TransactionPeriod
+import com.kontvip.wisecoin.domain.model.TransactionPeriod
 import com.kontvip.wisecoin.domain.model.Currency
 
 interface CacheSource {

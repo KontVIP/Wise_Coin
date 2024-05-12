@@ -1,4 +1,4 @@
-package com.kontvip.wisecoin.domain
+package com.kontvip.wisecoin.domain.model
 
 import androidx.annotation.StringRes
 import com.kontvip.wisecoin.R

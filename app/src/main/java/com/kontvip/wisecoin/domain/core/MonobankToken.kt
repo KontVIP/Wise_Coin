@@ -1,4 +1,6 @@
-package com.kontvip.wisecoin.domain
+package com.kontvip.wisecoin.domain.core
+
+import com.kontvip.wisecoin.domain.TokenServerValidator
 
 
 interface MonobankToken {

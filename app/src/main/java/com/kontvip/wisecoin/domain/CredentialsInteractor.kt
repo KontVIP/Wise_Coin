@@ -1,5 +1,6 @@
 package com.kontvip.wisecoin.domain
 
+import com.kontvip.wisecoin.domain.core.Repository
 import com.kontvip.wisecoin.domain.model.ClientInfo
 
 interface CredentialsInteractor {

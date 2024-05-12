@@ -1,7 +1,9 @@
 package com.kontvip.wisecoin.domain
 
+import com.kontvip.wisecoin.domain.core.Repository
 import com.kontvip.wisecoin.domain.model.Currency
 import com.kontvip.wisecoin.domain.model.PaymentDomain
+import com.kontvip.wisecoin.domain.model.TransactionPeriod
 
 interface TransactionsInteractor {
 

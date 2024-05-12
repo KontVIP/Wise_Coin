@@ -1,7 +1,7 @@
 package com.kontvip.wisecoin.di
 
 import com.kontvip.wisecoin.domain.CredentialsInteractor
-import com.kontvip.wisecoin.domain.Repository
+import com.kontvip.wisecoin.domain.core.Repository
 import com.kontvip.wisecoin.domain.TokenServerValidator
 import com.kontvip.wisecoin.domain.TransactionsInteractor
 import dagger.Module

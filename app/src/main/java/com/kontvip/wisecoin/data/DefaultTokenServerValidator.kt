@@ -1,6 +1,6 @@
 package com.kontvip.wisecoin.data
 
-import com.kontvip.wisecoin.domain.Repository
+import com.kontvip.wisecoin.domain.core.Repository
 import com.kontvip.wisecoin.domain.TokenServerValidator
 
 class DefaultTokenServerValidator(

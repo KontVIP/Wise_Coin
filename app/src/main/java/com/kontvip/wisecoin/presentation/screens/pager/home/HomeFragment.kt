@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.databinding.FragmentHomeBinding
-import com.kontvip.wisecoin.domain.TransactionPeriod
+import com.kontvip.wisecoin.domain.model.TransactionPeriod
 import com.kontvip.wisecoin.presentation.core.BaseFragment
 import com.kontvip.wisecoin.presentation.model.CategoryItem
 import com.kontvip.wisecoin.presentation.onClick

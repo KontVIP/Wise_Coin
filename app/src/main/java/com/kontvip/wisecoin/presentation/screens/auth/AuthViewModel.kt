@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.kontvip.wisecoin.R
 import com.kontvip.wisecoin.core.DispatcherList
 import com.kontvip.wisecoin.domain.CredentialsInteractor
-import com.kontvip.wisecoin.domain.MonobankToken
+import com.kontvip.wisecoin.domain.core.MonobankToken
 import com.kontvip.wisecoin.domain.TransactionsInteractor
 import com.kontvip.wisecoin.domain.model.PaymentDomain
 import com.kontvip.wisecoin.presentation.core.NavigationCommunication

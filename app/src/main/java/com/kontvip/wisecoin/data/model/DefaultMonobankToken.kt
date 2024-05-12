@@ -1,6 +1,6 @@
 package com.kontvip.wisecoin.data.model
 
-import com.kontvip.wisecoin.domain.MonobankToken
+import com.kontvip.wisecoin.domain.core.MonobankToken
 import com.kontvip.wisecoin.domain.TokenServerValidator
 
 data class DefaultMonobankToken(

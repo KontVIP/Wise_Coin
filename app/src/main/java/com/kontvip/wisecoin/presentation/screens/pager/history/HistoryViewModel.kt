@@ -3,7 +3,7 @@ package com.kontvip.wisecoin.presentation.screens.pager.history
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kontvip.wisecoin.core.DispatcherList
-import com.kontvip.wisecoin.domain.TransactionPeriod
+import com.kontvip.wisecoin.domain.model.TransactionPeriod
 import com.kontvip.wisecoin.domain.TransactionsInteractor
 import com.kontvip.wisecoin.domain.model.PaymentDomain
 import com.kontvip.wisecoin.presentation.model.PaymentUi

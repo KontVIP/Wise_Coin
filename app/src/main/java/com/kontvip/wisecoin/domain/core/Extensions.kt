@@ -1,4 +1,4 @@
-package com.kontvip.wisecoin.domain
+package com.kontvip.wisecoin.domain.core
 
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
