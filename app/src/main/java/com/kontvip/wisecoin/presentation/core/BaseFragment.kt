@@ -20,7 +20,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val inflateMethod = extractBindingInflateMethod(javaClass)
-
         _binding = inflateMethod.invoke(null, layoutInflater, null, false) as B
         return binding.root
     }
