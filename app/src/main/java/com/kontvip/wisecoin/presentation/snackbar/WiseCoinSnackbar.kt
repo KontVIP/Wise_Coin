@@ -13,10 +13,8 @@ interface WiseCoinSnackbar {
     class Error(@StringRes private val messageRes: Int) : WiseCoinSnackbar {
         override fun display(view: View) {
             val snackbar = Snackbar.make(view, messageRes, Snackbar.LENGTH_SHORT)
-
             snackbar.view.setBackgroundColor(ContextCompat.getColor(view.context, android.R.color.holo_red_dark))
             snackbar.setTextColor(Color.WHITE)
-
             snackbar.show()
         }
     }
