@@ -25,7 +25,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         return binding.root
     }
 
-
     private fun extractBindingInflateMethod(clazz: Class<*>): Method {
         val superClass = clazz.genericSuperclass
         return try {
@@ -49,5 +48,4 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 }
