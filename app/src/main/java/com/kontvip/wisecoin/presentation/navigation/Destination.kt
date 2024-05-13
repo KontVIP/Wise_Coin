@@ -6,7 +6,7 @@ import com.kontvip.wisecoin.presentation.model.CategoryItem
 import com.kontvip.wisecoin.presentation.screens.auth.AuthAutoExtractionFragment
 import com.kontvip.wisecoin.presentation.screens.auth.AuthManuallyFragment
 import com.kontvip.wisecoin.presentation.screens.pager.PagerFragment
-import com.kontvip.wisecoin.presentation.screens.splash.AuthPreloadingFragment
+import com.kontvip.wisecoin.presentation.screens.auth.AuthPreloadingFragment
 import com.kontvip.wisecoin.presentation.screens.add.AddTransactionFragment
 import com.kontvip.wisecoin.presentation.screens.category.CategoryFragment
 import com.kontvip.wisecoin.presentation.screens.welcome.WelcomeFragment
