@@ -110,7 +110,7 @@ Screenshot:
 - MPAndroidChart;
 - LiveData;
 - Room;
-- Retrofit
+- Retrofit;
 - Clean Architecture;
 - MVVM.
 
