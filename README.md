@@ -100,7 +100,7 @@ The Menu screen is the central hub for managing user settings and preferences wi
 
 Screenshot:
 
-<img width="609" alt="Screenshot 2024-06-17 at 09 24 51" src="https://github.com/KontVIP/Wise_Coin/assets/76660306/b6f1ae16-a00e-4934-9daa-cf33b4c560a3">
+<img width="539" alt="Screenshot 2024-06-17 at 09 30 23" src="https://github.com/KontVIP/Wise_Coin/assets/76660306/1c80eb3e-3c1e-41f1-aa82-ce5612eeb1af">
 
 
 ## Tech Stack
