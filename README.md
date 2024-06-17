@@ -117,5 +117,5 @@ Screenshot:
 ### Monobank API
 https://api.monobank.ua/docs/index.html
 
-## Note
+## Notes
 Some parts of this application are in Ukrainian language due to its integration with a Ukrainian bank's services. The server returns Ukrainian texts for certain features and messages.
